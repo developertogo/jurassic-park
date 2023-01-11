@@ -40,13 +40,13 @@ class SwaggerDocs
 
     info do
       key :version, '1.0.0'
-      key :title, 'Rails API Boilerplate'
-      key :description, 'Rails API Boilerplate'
+      key :title, 'Jurassic Park API'
+      key :description, 'Jurassic Park API'
 
       contact do
-        key :name, 'SHFT'
-        key :url, 'https://shft.co'
-        key :email, 'contact@shft.co'
+        key :name, 'Carlos Hung'
+        key :url, 'https://github.com/developertogo'
+        key :email, 'developertogo@gmail.com'
       end
     end
 
