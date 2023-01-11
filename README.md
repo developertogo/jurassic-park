@@ -8,7 +8,7 @@ This repo addresses the task described in [The Problem](#the-problem) section be
 
 ## Requirement
 
-- [Ruby](https://rvm.io/) >= *v3.1.2*
+- [Ruby](https://rvm.io/) *v3.1.2*
 - [PostgreSQL](https://www.postgresql.org/)
 - [Redis](https://redis.io/)
 
@@ -20,12 +20,31 @@ This repo addresses the task described in [The Problem](#the-problem) section be
   bundle install
   ```
 
-- Create database, migrate tables and run the seed data:
+- Create database
 
   ```bash
   rails db:create
+  ```
+
+  **Note**:
+  1. Connect to the `jurassic_park_development` database and ensure that you have the `pgcrypto` extension installed
+     - This is how you check, do:
+
+       ```SQL
+       select * from pg_proc where proname like 'gen_random_%';
+       ```
+
+     - If the return is 0 rows, this means both functions: `gen_random_bytes` and `gen_random_uuid`, are not defined then you probably had an error with the extension creation, just drop it and recreate:
+
+       ```SQL
+       DROP EXTENSION pgcrypto;
+       CREATE EXTENSION pgcrypto;
+       ```
+
+- Run migration scripts
+
+  ```bash
   rails db:migrate
-  rails db:seed
   ```
 
 - If you are setting up again, when you already have previous databases:
