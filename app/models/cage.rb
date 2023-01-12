@@ -1,0 +1,2 @@
+class Cage < ApplicationRecord
+end
