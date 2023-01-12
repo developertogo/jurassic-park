@@ -62,12 +62,15 @@ This repo addresses the task described in [The Problem](#the-problem) section be
    ./bin/dev
    ```
 
+## Running in a Concurrent Environment
 
+When running in a concurrent environment, these changes need to be made:
 
-
-
-
-
+1. For long running processes and to prevent blocking, queue them as background jobs with [Sidekiq](https://github.com/mperham/sidekiq) which is already included as part of the boilerplate template.
+2. Configure the [Puma](https://github.com/puma/puma) web server that is already installed with this application. Puma uses threads to handle requests concurrently and pass them to the Rails application.
+  a. Set the `ENV['WEB_CONCURRENCY']` environment variable to the number of child processes, default is `1`, `2` if there is enough memory.
+  b. Set the  `ENV['RAILS_MAX_THREADS']` environment variable to the number of worker threads, default is `5`.
+  For reference, see [Deploying Rails Applications with the Puma Web Server in Heroku](https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server)
 
 ---
 
