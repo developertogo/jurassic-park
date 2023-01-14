@@ -12,7 +12,7 @@ class CagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create cage" do
     assert_difference("Cage.count") do
-      post cages_url, params: { cage: { dinosaur_count: @cage.dinosaur_count, location: @cage.location, max_capacity: @cage.max_capacity, power_status: @cage.power_status } }, as: :json
+      post cages_url, params: { cage: { dinosaur_count: @cage.dinosaur_count, location: @cage.location, max_capacity: @cage.max_capacity, power_status: @cage.power_status, tag: @cage.tag } }, as: :json
     end
 
     assert_response :created
@@ -24,7 +24,7 @@ class CagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update cage" do
-    patch cage_url(@cage), params: { cage: { dinosaur_count: @cage.dinosaur_count, location: @cage.location, max_capacity: @cage.max_capacity, power_status: @cage.power_status } }, as: :json
+    patch cage_url(@cage), params: { cage: { dinosaur_count: @cage.dinosaur_count, location: @cage.location, max_capacity: @cage.max_capacity, power_status: @cage.power_status, tag: @cage.tag } }, as: :json
     assert_response :success
   end
 

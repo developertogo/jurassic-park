@@ -48,6 +48,6 @@ class CagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def cage_params
-      params.require(:cage).permit(:max_capacity, :dinosaur_count, :power_status, :location)
+      params.require(:cage).permit(:max_capacity, :dinosaur_count, :power_status, :location, :tag)
     end
 end
