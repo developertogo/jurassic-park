@@ -47,6 +47,12 @@ This repo addresses the task described in [The Problem](#the-problem) section be
   rails db:migrate
   ```
 
+- Run seed migration script to populate the OAuth table:
+
+  ```bash
+  rails db:seed
+  ```
+
 - If you are setting up again, when you already have previous databases:
 
   ```bash
