@@ -63,6 +63,12 @@ group :development, :test do
   # Pry is a runtime developer console and IRB alternative with powerful introspection capabilities [https://github.com/pry/pry]
   gem 'pry', '~> 0.14.1'
 
+  # Pry::StackExplorer is a plugin for Pry that allows navigating the call stack [https://github.com/pry/pry-stack_explorer]
+  gem 'pry-stack_explorer', '~> 0.6.0'
+
+  # Adds step, next, finish, and continue commands and breakpoints to Pry [https://github.com/nixme/pry-nav]
+  gem 'pry-nav', '~> 1.0'
+
   # Byebug is a Ruby debugger [https://github.com/deivid-rodriguez/byebug]
   gem 'byebug', '~> 11.1', '>= 11.1.3'
 end
