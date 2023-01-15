@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_12_195921) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_12_215225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "diets", ["herbivores", "carnivores"]
+  create_enum "power_statuses", ["active", "down"]
+  create_enum "specieses", ["tyrannosaurus", "giganotosaurus", "velociraptor", "spinosaurus", "megalosaurus", "yutyrannus", "acrocanthosaurus", "carnotaurus", "deinonychus", "allosaurus", "troodon", "herrerasaurus", "brachiosaurus", "stegosaurus", "ankylosaurus", "triceratops", "diplodocus", "dracorex", "moschops", "argentinosaurus", "edmontosaurus", "hadrosaurus", "nodosaurus"]
+
+  create_table "cages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "tag", null: false
+    t.enum "power_status", null: false, enum_type: "power_statuses"
+    t.integer "dinosaur_count", default: 0, null: false
+    t.integer "max_capacity", default: 1, null: false
+    t.string "location", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["power_status"], name: "index_cages_on_power_status"
+    t.index ["tag"], name: "index_cages_on_tag", unique: true
+  end
+
+  create_table "dinosaurs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "cage_id"
+    t.string "name", null: false
+    t.enum "diet", null: false, enum_type: "diets"
+    t.enum "species", null: false, enum_type: "specieses"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cage_id"], name: "index_dinosaurs_on_cage_id"
+    t.index ["name"], name: "index_dinosaurs_on_name", unique: true
+    t.index ["species"], name: "index_dinosaurs_on_species"
+  end
 
   create_table "oauth_access_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "resource_owner_type"
@@ -61,5 +91,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_12_195921) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dinosaurs", "cages"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
 end
