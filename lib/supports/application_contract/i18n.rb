@@ -2,7 +2,7 @@
 
 module Supports
   module ApplicationContract
-    module I18n
+    module I18N
       # rubocop:disable Rails/Output
       def check_i18n_translations_for(errors, locale)
         params = errors.keys.map { |k| k.to_s.split(Supports::ApplicationContract::ErrorParser::TEST_KEYS_SPLITTER) }.flatten
