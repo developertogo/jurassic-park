@@ -4,7 +4,7 @@
 module Supports
   module ContractValidator
     include Supports::ApplicationContract::ErrorParser
-    include Supports::ApplicationContract::I18n
+    include Supports::ApplicationContract::I18N
 
     def success?(result, key, contract)
       assert_not_includes contract_error_messages(result, contract).keys, key
