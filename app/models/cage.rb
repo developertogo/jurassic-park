@@ -6,13 +6,13 @@ class Cage < ApplicationRecord
   has_many :dinosaurs, dependent: :destroy, inverse_of: :cage,
     before_add: [:check_max_capacity_on_add, :check_power_status_on_add],
     after_add: :increment_dinasour_count,
-    after_remove:  :decrement_dinasour_count
+    after_remove: :decrement_dinasour_count
 
   attr_reader :dinosaur_count
 
   before_save :check_power_status
 
-  enum :power_status, Park::Cage::POWER_STATUS, default: :down, scopes: false, suffix: true
+  enum :power_status, Park::Cage::POWER_STATUS, default: :down, scopes: false
 
   MAX_CAPACITY = 100
 

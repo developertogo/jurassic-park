@@ -3,7 +3,6 @@ require './app/lib/park.rb'
 class CreateCages < ActiveRecord::Migration[7.0]
   def change
     create_enum :power_statuses, Park::Cage::POWER_STATUS.map(&:to_s)
-    #create_enum :power_statuses, %w[active down]
 
     create_table :cages, id: :uuid do |t|
       t.string :tag, null: false

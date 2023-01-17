@@ -4,7 +4,26 @@
 # Jurassic Park - RESTful Rails API
 
 # Solution
-This repo addresses the task described in [The Problem](#the-problem) section below. It's based on the [Rails API Boilerplate](https://github.com/shftco/rails-api-boilerplate). Although, it includes more gems that is required for this project, it includes a great handling of the HTTP request, see [How to Works?](https://github.com/shftco/rails-api-boilerplate#how-to-works) section. This _boilerplate_ is also a great starting point to expand the application with more features and functionalities later.
+
+## Introduction
+
+The intend of this repo is to address the problem (assignment) described in [The Problem](#the-problem) section below.
+
+## Design and Development Strategy
+
+The source code is based on the [Rails API Boilerplate](https://github.com/shftco/rails-api-boilerplate). Although, it includes more gems that is required for this project, it includes a great workflow handling of the HTTP request, see [How to Works?](https://github.com/shftco/rails-api-boilerplate#how-to-works) section. This _boilerplate_ is also a great starting point to expand the application with more features and functionalities later.
+
+## Business Assumptions
+
+Some [requirements](#business-requirements) which were not mentioned in the assignment are addressed below. The code can be easily refactored if the requirements changes.
+
+* Use UUID for record IDs in order to avoid vulnerability attacks
+* A cage has a unique tag name and location
+* A cage max capacity cannot be changed, it can only be set on create
+* The max capacity of a cage is set to 100 for validation purposes. It's a constant variable
+  and can easily make it configurable if it needs to
+* The max capacity lowest value is 1
+* A dinosaur name is unique
 
 ## Requirement
 
@@ -84,7 +103,7 @@ When running in a concurrent environment, these changes need to be made:
 
 It's 1993 and you're the lead software developer for the new Jurassic Park! Park operations needs a system to keep track of the different cages around the park and the different dinosaurs in each one. You'll need to develop a JSON formatted RESTful API to allow the builders to create new cages. It will also allow doctors and scientists the ability to edit/retrieve the statuses of dinosaurs and cages.
 
-## Business Requirements
+## [Business Requirements](#business-requirements)
 
 Please attempt to implement the following business requirements:
 

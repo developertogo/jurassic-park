@@ -37,6 +37,7 @@ module Supports
       end
 
       def localize_error_message(keys, val)
+        binding.pry
         case I18n.locale
         when :tr
           "#{localize_params(keys).reverse.join(keys_splitter)} #{val}"
@@ -48,6 +49,7 @@ module Supports
       end
 
       def localize_params(keys)
+        binding.pry
         case I18n.locale
         when :tr
           keys.map { |k| I18n.t("contracts.params.#{k}").capitalize }

@@ -10,7 +10,7 @@ class Dinosaur < ApplicationRecord
   after_update :update_diet
   before_save :update_diet
 
-  enum :diet, Park::Dinosaur::DIET, scopes: false, suffix: true
+  enum :diet, Park::Dinosaur::DIET, scopes: false
   enum :species, Park::Dinosaur::SPECIES, scopes: false
 
   validates :name, presence: true, uniqueness: true, allow_blank: false
