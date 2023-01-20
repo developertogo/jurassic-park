@@ -4,7 +4,7 @@ module Park
   end
 
   module Dinosaur
-    DIET = %i[herbivores carnivores] # omnivores is another option
+    DIET = %i[carnivores herbivores] # omnivores is another option
 
     CARNIVORES = %i[tyrannosaurus giganotosaurus velociraptor spinosaurus megalosaurus yutyrannus 
                     acrocanthosaurus carnotaurus deinonychus allosaurus troodon herrerasaurus]

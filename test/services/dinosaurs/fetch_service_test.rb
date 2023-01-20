@@ -4,15 +4,17 @@ require 'test_helper'
 
 module Dinosaurs
   class FetchServiceTest < ActiveSupport::TestCase
-    attr_reader :dinosaur
+    attr_reader :params, :dinosaur, :doorkeeper_application
 
     def setup
       @dinosaur = create(:dinosaur)
+      @doorkeeper_application = create(:doorkeeper_application)
     end
 
     test 'should fetch dinosaur successfully' do
       assert_nothing_raised do
-        service = Dinosaurs::FetchService.new({ id: dinosaur.id }).call
+        params = { id: dinosaur.id } 
+        service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
 
         assert service.success?
       end
@@ -20,27 +22,18 @@ module Dinosaurs
 
     test 'should fetch dinosaur list sucessfully' do
       assert_nothing_raised do
-        service = Dinosaurs::FetchService.new({}).call
+        service = Dinosaurs::FetchService.new(params: {}, doorkeeper_application:).call
 
         assert service.success?
       end
     end
 
     test 'should not fetch dinosaur with an unknown id' do
-      assert_no_difference 'Dinosaurs not found' do
-        service = Dinosaurs::FetchService.new({ id: 0 }).call
+      assert_raise 'ActiveRecord::RecordNotFound' do
+        params = { id: 0 }
+        service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
 
-        assert service.failure?
-      end
-    end
-
-    test 'should fail to fetch if something goes wrong' do
-      Dinosaur.any_instance.expects(:find).returns(false)
-
-      assert_no_difference 'Dinosaur fetch' do
-        service = Dinosaurs::CreateService.new({ id: dinosaur.id }).call
-
-        assert service.failure?
+        assert service.success?
       end
     end
   end

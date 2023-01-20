@@ -4,6 +4,12 @@ require 'test_helper'
 
 module Cages
   class EditOperationTest < ActiveSupport::TestCase
+    attr_reader :doorkeeper_application
+
+    def setup
+      @doorkeeper_application = create(:doorkeeper_application)
+    end
+
     test 'should pass contract validation then calling the service' do
       params_mock = mock
       params_mock.expects(:to_h).returns(params_mock)
@@ -18,7 +24,7 @@ module Cages
       Cages::EditService.expects(:new).returns(service_mock)
       service_mock.expects(:call).returns(Dry::Monads::Result::Success.new(true))
 
-      operation = Cages::EditOperation.new(params: params_mock).call
+      operation = Cages::EditOperation.new(params: params_mock, doorkeeper_application:).call
 
       assert operation.success?
     end
@@ -27,7 +33,7 @@ module Cages
       service_mock = mock
       Cages::EditService.expects(:new).returns(service_mock).never
 
-      operation = Cages::EditOperation.new(params: {}).call
+      operation = Cages::EditOperation.new(params: {}, doorkeeper_application:).call
 
       errors = contract_errors_parser(operation.failure)
 
@@ -49,7 +55,7 @@ module Cages
       Cages::EditService.expects(:new).returns(service_mock)
       service_mock.expects(:call).returns(Dry::Monads::Result::Failure.new(:failed_because_of_me))
 
-      operation = Cages::EditOperation.new(params: params_mock).call
+      operation = Cages::EditOperation.new(params: params_mock, doorkeeper_application:).call
 
       assert operation.failure?
       assert_equal :failed_because_of_me, operation.failure

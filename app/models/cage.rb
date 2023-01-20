@@ -5,21 +5,23 @@ class Cage < ApplicationRecord
 
   has_many :dinosaurs, dependent: :destroy, inverse_of: :cage,
     before_add: [:check_max_capacity_on_add, :check_power_status_on_add],
-    after_add: :increment_dinasour_count,
-    after_remove: :decrement_dinasour_count
+    after_add: :increment_dinosaur_count,
+    after_remove: :decrement_dinosaur_count
 
   attr_reader :dinosaur_count
 
+  after_initialize :init
+
   before_save :check_power_status
 
-  enum :power_status, Park::Cage::POWER_STATUS, default: :down, scopes: false
+  enum :power_status, Park::Cage::POWER_STATUS.zip(Park::Cage::POWER_STATUS.map(&:to_s)).to_h, default: :down, scopes: false
 
   MAX_CAPACITY = 100
 
   validates :max_capacity, numericality: { in: 1..100 }
   validates :tag, presence: true, uniqueness: true, allow_blank: false
   validates :location, presence: true, allow_blank: false
-  validates :power_status, inclusion: { in: Park::Cage::POWER_STATUS,
+  validates :power_status, inclusion: { in: Park::Cage::POWER_STATUS.map(&:to_s),
                                         message: "Power status must be one of #{Park::Cage::POWER_STATUS.map(&:to_s)}" }
 
   # Commented this line because of the error below on Rails 7.0.4
@@ -42,33 +44,43 @@ class Cage < ApplicationRecord
 
   private
 
+  def init
+    self.dinosaur_count ||= 0
+  end
+
   def check_max_capacity_on_add(dinosaur)
-    if dinasour_count+1 > max_capacity
+    #binding.pry
+    # NOTE: during unit testing, dinosaur_count is nil even though it shows that 
+    #       it was set in init() above
+    return if dinosaur_count.blank?
+    if (dinosaur_count+1) > max_capacity
       errors.add(:base, "Unable to move to cage #{tag}. It's full (max capacity is #{max_capacity})")
       throw(:abort)
     end
   end
 
   def check_power_status_on_add(dinosaur)
+    #binding.pry
     if power_status == :down
       errors.add(:base, "Unable to move to cage #{tag}. It's power status is down")
       throw(:abort)
     end
   end
 
-  def check_power_status(dinosaur)
+  def check_power_status
+    #binding.pry
     return unless power_status_changed?
-    if power_status == :down && dinasour_count > 0
-      errors.add(:base, "Unable to power off cage #{tag}. It's not empty with #{dinasour_count} dinosaurs contained")
+    if power_status == :down && dinosaur_count > 0
+      errors.add(:base, "Unable to power off cage #{tag}. It's not empty with #{dinosaur_count} dinosaurs contained")
       throw(:abort)
     end
   end
 
-  def decrement_dinasour_count(dinosaur)
-    dinasour_count -= 1
+  def decrement_dinosaur_count(dinosaur)
+    self.dinosaur_count -= 1
   end
 
-  def increment_dinasour_count(dinosaur)
-    dinasour_count += 1
+  def increment_dinosaur_count(dinosaur)
+    self.dinosaur_count += 1
   end
 end

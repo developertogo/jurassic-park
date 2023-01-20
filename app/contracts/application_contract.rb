@@ -5,17 +5,40 @@ require 'dry-validation'
 class ApplicationContract < Dry::Validation::Contract
   config.messages.backend = :i18n
 
-  config do
-    option :record
+  UniqueNameCageSchema = Dry::Schema.Params do
+      required(:id).value { uuid_v4? }
+      required(:attr_name).value(:string)
+      required(:name).value(:string)
 
-    def is_kind?(class_type, value)
-      class_type.where(id: value).any?
-    end
+      def unique?(id, attr_name, value)
+        Cage.where.not(id: id).where(attr_name => name).empty?
+      end
+  end
 
-    def unique? (class_type, attr_name, value)
-      record.class.where.not(id: id).where(attr_name => value).empty?
-      #record.class.where.not(id: record.id).where(attr_name => value).empty?
-    end
+  UniqueNameDinosaurSchema = Dry::Schema.Params do
+      required(:id).value { uuid_v4? }
+      required(:attr_name).value(:string)
+      required(:name).value(:string)
+
+      def unique?(id, attr_name, name)
+        Dinosaur.where.not(id: id).where(attr_name => name).empty?
+      end
+  end
+
+  FindCageSchema = Dry::Schema.Params do
+    required(:id).value { uuid_v4? }
+
+      def find_by_id(id)
+        Cage.where(id: id).any?
+      end
+  end
+
+  FindDinosaurSchema = Dry::Schema.Params do
+    required(:id).value { uuid_v4? }
+
+      def find_by_id(value)
+        Dinosaur.where(id: value).any?
+      end
   end
 
   register_macro(:password_confirmation) do

@@ -4,7 +4,7 @@ require "test_helper"
 
 class CageTest < ActiveSupport::TestCase
   test 'should have a valid factory' do
-    assert create(:cache).persisted?
+    assert create(:cage).persisted?
   end
 
   context '#indexes' do

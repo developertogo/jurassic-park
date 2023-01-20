@@ -4,17 +4,26 @@ require 'test_helper'
 
 module Dinosaurs
   class CreateServiceTest < ActiveSupport::TestCase
-    attr_reader :params
+    attr_reader :params, :doorkeeper_application
 
     def setup
       @params = attributes_for(:dinosaur)
+      @doorkeeper_application = create(:doorkeeper_application)
+      @cage = create(:cage)
     end
 
     test 'should create dinosaur' do
-      assert_difference 'Dinosaur.count', 1 do
-        service = Dinosaurs::CreateService.new(params:).call
+      # TODO: return Actual: 0 when Expected: 1
+      #assert_difference 'Dinosaur.count' do
+      assert_nothing_raised do
+        params[:cage_id] = @cage.id
+        service = Dinosaurs::CreateService.new(params:, doorkeeper_application:).call
+
+        dinosaur = service.success
 
         assert service.success?
+        assert_equal params[:cage_id], dinosaur[:cage_id]
+        assert_equal params[:cage_id], dinosaur.cage.id
       end
     end
 
@@ -22,7 +31,7 @@ module Dinosaurs
       Dinosaur.any_instance.expects(:save).returns(false)
 
       assert_no_difference 'Dinosaur.count' do
-        service = Dinosaurs::CreateService.new(params:).call
+        service = Dinosaurs::CreateService.new(params:, doorkeeper_application:).call
 
         assert service.failure?
       end

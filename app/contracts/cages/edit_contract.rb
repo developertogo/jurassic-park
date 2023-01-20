@@ -5,9 +5,8 @@ module Cages
     params do
       required(:id).filled(:uuid_v4?)
 
-      values = Park::Cage::POWER_STATUSES.map { |v| v.to_s.downcase }
-      optional(:tag) { maybe? & str? & unique?(Cage, :tag) }
-      #optional(:name).maybe(str?, unique?(Cage, :tag))
+      values = Park::Cage::POWER_STATUS.map { |v| v.to_s.downcase }
+      optional(:tag) { str? } #& UniqueNameCageSchema.call(id: :id, attr_name: 'tag', name: :tag) } 
 
       optional(:power_status).maybe(Types::String.enum(*values))
       # another alternative
