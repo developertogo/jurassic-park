@@ -16,8 +16,7 @@ module Dinosaurs
       cage = create(:cage)
       params = { id: dinosaur.id,
                  cage_id: cage.id }
-      assert_changes -> { dinosaur.updated_at } do
-        #binding.pry
+      assert_changes -> { dinosaur.cage } do
         service = Dinosaurs::MoveService.new(params:, doorkeeper_application:).call
 
         dinosaur.reload

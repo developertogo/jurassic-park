@@ -3,7 +3,7 @@ require './app/lib/park.rb'
 class Cage < ApplicationRecord
   include ValidatableEnum
 
-  has_many :dinosaurs, dependent: :destroy, inverse_of: :cage,
+  has_many :dinosaurs, dependent: :nullify, inverse_of: :cage,
     before_add: [:check_max_capacity_on_add, :check_power_status_on_add],
     after_add: :increment_dinosaur_count,
     after_remove: :decrement_dinosaur_count
@@ -85,6 +85,7 @@ class Cage < ApplicationRecord
   end
 
   def increment_dinosaur_count(dinosaur)
+    return if self.dinosaur_count.nil?
     self.dinosaur_count = 0 if self.dinosaur_count.blank?
     self.dinosaur_count += 1
   end
