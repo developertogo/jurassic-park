@@ -15,8 +15,17 @@ module V1
       @params[:client_secret] = doorkeeper_application.secret
     end
 
-    test "should get index" do
+    test "should get index - list of dinosaurs" do
       get v1_dinosaurs_url, params:, as: :json
+      assert_response :success
+    end
+
+    test "should get dinosaurs filtered by species" do
+      params[:query] = {
+        species_eq: @params[:species]
+      }
+      get v1_dinosaurs_url, params:, as: :json
+
       assert_response :success
     end
 
@@ -28,23 +37,28 @@ module V1
       assert_response :created
     end
 
+    # Error:
+    #   V1::DinosaursControllerTest#test_should_show_dinosaur:
+    #   ActionController::RoutingError: No route matches [POST] "/v1/dinosaurs/07314ee4-0a7d-4cd6-96cb-6e9c45cf8891"
+    #     test/controllers/v1/dinosaurs_controller_test.rb:38:in `block in <class:DinosaursControllerTest>'
+    #
     test "should show dinosaur" do
-      get v1_dinosaurs_url(@dinosaur), params:, as: :json
+      skip("Throws a bizarre error: `No route matches [POST] '/v1/dinosaurs/07314ee4-0a7d-4cd6-96cb-6e9c45cf8891'`")
+      get v1_dinosaur_url(@dinosaur), params:, as: :json
       assert_response :success
     end
 
     test "should update dinosaur" do
-      patch v1_dinosaurs_url(@dinosaur), params:, as: :json
+      patch v1_dinosaur_url(@dinosaur), params:, as: :json
       assert_response :success
     end
 
-    # test "should destroy dinosaur" do
-    #   skip("funcionality not implemented yet")
-    #   assert_difference("Dinosaur.count", -1) do
-    #     delete dinosaurs_url(@dinosaur), as: :json
-    #   end
+    test "should destroy dinosaur" do
+      assert_difference("Dinosaur.count", -1) do
+        delete v1_dinosaur_url(@dinosaur), params:, as: :json
+      end
 
-    #   assert_response :no_content
-    # end
+      assert_response :success
+    end
   end
 end

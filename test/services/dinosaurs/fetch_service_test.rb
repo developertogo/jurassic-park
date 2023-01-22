@@ -13,7 +13,7 @@ module Dinosaurs
 
     test 'should fetch dinosaur successfully' do
       assert_nothing_raised do
-        params = { id: dinosaur.id } 
+        params = { id: dinosaur.id }
         service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
 
         assert service.success?
@@ -25,6 +25,20 @@ module Dinosaurs
         service = Dinosaurs::FetchService.new(params: {}, doorkeeper_application:).call
 
         assert service.success?
+      end
+    end
+
+    test 'should fetch dinosaur list filtered by species sucessfully' do
+      assert_nothing_raised do
+        params = {
+          query: { species_eq: @dinosaur.species}
+        }
+        service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
+
+        res = service.success.first
+
+        assert service.success?
+        assert_equal @dinosaur.name, res.name
       end
     end
 

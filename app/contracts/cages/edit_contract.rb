@@ -5,7 +5,7 @@ module Cages
     params do
       required(:id).filled(:uuid_v4?)
 
-      values = Park::Cage::POWER_STATUS.map { |v| v.to_s.downcase }
+      values = Park::Cages::POWER_STATUS.map { |v| v.to_s.downcase }
       optional(:tag) { str? } #& UniqueNameCageSchema.call(id: :id, attr_name: 'tag', name: :tag) } 
 
       optional(:power_status).maybe(Types::String.enum(*values))

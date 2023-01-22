@@ -1,9 +1,9 @@
 module Park
-  module Cage
+  module Cages
     POWER_STATUS = %i[active down]
   end
 
-  module Dinosaur
+  module Dinosaurs
     DIET = %i[carnivores herbivores] # omnivores is another option
 
     CARNIVORES = %i[tyrannosaurus giganotosaurus velociraptor spinosaurus megalosaurus yutyrannus 

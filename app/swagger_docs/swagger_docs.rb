@@ -16,17 +16,21 @@ class SwaggerDocs
     Controllers::V1::Users::TokensController,
     Controllers::V1::Users::RegistrationsController,
     Controllers::V1::Users::PasswordsController,
+    Controllers::V1::CagesController,
+    #Controllers::V1::DinosaursController,
     ## Inputs ##
     Inputs::V1::User::SignInInput,
     Inputs::V1::User::SignUpInput,
     Inputs::V1::User::ResetPasswordInput,
     Inputs::V1::User::UpdatePasswordInput,
     Inputs::V1::User::RevokeInput,
+    Inputs::V1::CagesInput,
     ## Responses ##
     Responses::V1::User::SignInResponse,
     Responses::V1::User::SignUpResponse,
     Responses::V1::User::ResetPasswordResponse,
     Responses::V1::User::UpdatePasswordResponse,
+    Responses::V1::CagesResponse,
     ## Models ##
     self
   ].concat(COMMON_SWAGGERED_CLASSES)

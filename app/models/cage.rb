@@ -14,15 +14,15 @@ class Cage < ApplicationRecord
 
   before_save :check_power_status
 
-  enum :power_status, Park::Cage::POWER_STATUS.zip(Park::Cage::POWER_STATUS.map(&:to_s)).to_h, default: :down, scopes: false
+  enum :power_status, Park::Cages::POWER_STATUS.zip(Park::Cages::POWER_STATUS.map(&:to_s)).to_h, default: :down, scopes: false
 
   MAX_CAPACITY = 100
 
   validates :max_capacity, numericality: { in: 1..100 }
   validates :tag, presence: true, uniqueness: true, allow_blank: false
   validates :location, presence: true, allow_blank: false
-  validates :power_status, inclusion: { in: Park::Cage::POWER_STATUS.map(&:to_s),
-                                        message: "Power status must be one of #{Park::Cage::POWER_STATUS.map(&:to_s)}" }
+  validates :power_status, inclusion: { in: Park::Cages::POWER_STATUS.map(&:to_s),
+                                        message: "Power status must be one of #{Park::Cages::POWER_STATUS.map(&:to_s)}" }
 
   # Commented this line because of the error below on Rails 7.0.4
   #validatable_enum :power_status
@@ -44,8 +44,10 @@ class Cage < ApplicationRecord
 
   private
 
+  #attr_accessor :dinosaur_count
+
   def init
-    self.dinosaur_count ||= 0
+    self.dinosaur_count = 0 if self.dinosaur_count.blank?
   end
 
   def check_max_capacity_on_add(dinosaur)
@@ -77,10 +79,13 @@ class Cage < ApplicationRecord
   end
 
   def decrement_dinosaur_count(dinosaur)
-    self.dinosaur_count -= 1
+    return if self.dinosaur_count.nil?
+    self.dinosaur_count = 0 if self.dinosaur_count.blank?
+    self.dinosaur_count -= 1 if self.dinosaur_count > 0
   end
 
   def increment_dinosaur_count(dinosaur)
+    self.dinosaur_count = 0 if self.dinosaur_count.blank?
     self.dinosaur_count += 1
   end
 end

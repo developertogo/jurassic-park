@@ -23,7 +23,7 @@ module Dinosaurs
     end
 
     def fetch_dinosaurs
-      dinosaurs = Dinosaur.all
+      dinosaurs = Dinosaur.ransack(params[:query]).result
 
       Success(dinosaurs)
     end

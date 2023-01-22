@@ -10,11 +10,11 @@ class Dinosaur < ApplicationRecord
   after_update :update_diet
   before_save :update_diet
 
-  enum :diet, Park::Dinosaur::DIET.zip(Park::Dinosaur::DIET.map(&:to_s)).to_h, scopes: false
-  enum :species, Park::Dinosaur::SPECIES.zip(Park::Dinosaur::SPECIES.map(&:to_s)).to_h, scopes: false
+  enum :diet, Park::Dinosaurs::DIET.zip(Park::Dinosaurs::DIET.map(&:to_s)).to_h, scopes: false
+  enum :species, Park::Dinosaurs::SPECIES.zip(Park::Dinosaurs::SPECIES.map(&:to_s)).to_h, scopes: false
 
   validates :name, presence: true, uniqueness: true, allow_blank: false
-  validates :species, inclusion: { in: Park::Dinosaur::SPECIES.map(&:to_s),
+  validates :species, inclusion: { in: Park::Dinosaurs::SPECIES.map(&:to_s),
                                    message: "Invalid species" }
 
   # Commented this line because of the error below on Rails 7.0.4
@@ -39,6 +39,6 @@ class Dinosaur < ApplicationRecord
 
   def update_diet
     return unless species_changed?
-    self.diet = (species in Park::Dinosaur::CARNIVORES) ? :carnivores : :herbivores
+    self.diet = (species in Park::Dinosaurs::CARNIVORES) ? :carnivores : :herbivores
   end
 end

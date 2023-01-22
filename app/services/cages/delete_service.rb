@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Cages
-  class EditService < ApplicationService
+  class DeleteService < ApplicationService
     option :params, type: Types::Hash
 
     def call
       cage = yield fetch_cage
-      result = yield update_cage(cage)
+      result = yield delete_cage(cage)
 
       Success(result)
     end
@@ -19,9 +19,8 @@ module Cages
       Success(cage)
     end
 
-    def update_cage(cage)
-      #binding.pry
-      return Success('Cage saved!') if cage.update(params)
+    def delete_cage(cage)
+      return Success('Cage deleted!') if cage.destroy
 
       resource_failure(cage)
     end

@@ -19,11 +19,15 @@ module Cages
     def fetch_one_cage
       cage = Cage.find(params[:id])
 
+      if params[:query]&.has_key?(:dinosaurs)
+        return Success(cage.dinosaurs)
+      end
+
       Success(cage)
     end
 
     def fetch_cages
-      cages = Cage.all
+      cages = Cage.ransack(params[:query]).result
 
       Success(cages)
     end

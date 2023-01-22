@@ -2,8 +2,8 @@ require_dependency './app/lib/park.rb'
 
 class CreateDinosaurs < ActiveRecord::Migration[7.0]
   def change
-    create_enum :diets, Park::Dinosaur::DIET.map(&:to_s)
-    create_enum :specieses, Park::Dinosaur::SPECIES.map(&:to_s)
+    create_enum :diets, Park::Dinosaurs::DIET.map(&:to_s)
+    create_enum :specieses, Park::Dinosaurs::SPECIES.map(&:to_s)
 
     create_table :dinosaurs, id: :uuid do |t|
       t.belongs_to :cage, type: :uuid, index: true, foreign_key: true

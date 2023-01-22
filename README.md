@@ -79,7 +79,7 @@ Some [requirements](#business-requirements) which were not mentioned in the assi
   ```
 
   `reset` is equivalent of `rails db:drop & rails db:setup`.
-  &nbsp;  
+  &nbsp;
 
 - Run the server
 

@@ -4,7 +4,7 @@
 module Cages
   class CreateContract < ApplicationContract
     params do
-      values = Park::Cage::POWER_STATUS.map { |v| v.to_s.downcase }
+      values = Park::Cages::POWER_STATUS.map { |v| v.to_s.downcase }
       required(:tag) { filled? & str? } #& UniqueNameCageSchema.call(id: :id, attr_name: 'tag', name: :tag) }
       required(:power_status).filled(Types::String.enum(*values))
       # another alternative
