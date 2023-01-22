@@ -5,10 +5,10 @@ class Cage < ApplicationRecord
 
   has_many :dinosaurs, dependent: :nullify, inverse_of: :cage,
     before_add: [:check_max_capacity_on_add, :check_power_status_on_add],
-    after_add: :increment_dinosaur_count,
-    after_remove: :decrement_dinosaur_count
+    after_add: :increment_dinosaurs_count,
+    after_remove: :decrement_dinosaurs_count
 
-  attr_reader :dinosaur_count
+  attr_reader :dinosaurs_count
 
   after_initialize :init
 
@@ -44,18 +44,18 @@ class Cage < ApplicationRecord
 
   private
 
-  #attr_accessor :dinosaur_count
+  #attr_accessor :dinosaurs_count
 
   def init
-    self.dinosaur_count = 0 if self.dinosaur_count.blank?
+    self.dinosaurs_count = 0 if self.dinosaurs_count.blank?
   end
 
   def check_max_capacity_on_add(dinosaur)
     #binding.pry
-    # NOTE: during unit testing, dinosaur_count is nil even though it shows that 
+    # NOTE: during unit testing, dinosaurs_count is nil even though it shows that 
     #       it was set in init() above
-    return if dinosaur_count.blank?
-    if (dinosaur_count+1) > max_capacity
+    return if dinosaurs_count.blank?
+    if (dinosaurs_count+1) > max_capacity
       errors.add(:base, "Unable to move to cage #{tag}. It's full (max capacity is #{max_capacity})")
       throw(:abort)
     end
@@ -72,21 +72,21 @@ class Cage < ApplicationRecord
   def check_power_status
     #binding.pry
     return unless power_status_changed?
-    if power_status == :down && dinosaur_count > 0
-      errors.add(:base, "Unable to power off cage #{tag}. It's not empty with #{dinosaur_count} dinosaurs contained")
+    if power_status == :down && dinosaurs_count > 0
+      errors.add(:base, "Unable to power off cage #{tag}. It's not empty with #{dinosaurs_count} dinosaurs contained")
       throw(:abort)
     end
   end
 
-  def decrement_dinosaur_count(dinosaur)
-    return if self.dinosaur_count.nil?
-    self.dinosaur_count = 0 if self.dinosaur_count.blank?
-    self.dinosaur_count -= 1 if self.dinosaur_count > 0
+  def decrement_dinosaurs_count(dinosaur)
+    return if self.dinosaurs_count.nil?
+    self.dinosaurs_count = 0 if self.dinosaurs_count.blank?
+    self.dinosaurs_count -= 1 if self.dinosaurs_count > 0
   end
 
-  def increment_dinosaur_count(dinosaur)
-    return if self.dinosaur_count.nil?
-    self.dinosaur_count = 0 if self.dinosaur_count.blank?
-    self.dinosaur_count += 1
+  def increment_dinosaurs_count(dinosaur)
+    return if self.dinosaurs_count.nil?
+    self.dinosaurs_count = 0 if self.dinosaurs_count.blank?
+    self.dinosaurs_count += 1
   end
 end

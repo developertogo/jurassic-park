@@ -11,7 +11,7 @@ module Inputs
 
           # t.string "tag", null: false
           # t.enum "power_status", null: false, enum_type: "power_statuses"
-          # t.integer "dinosaur_count", default: 0, null: false
+          # t.integer "dinosaurs_count", default: 0, null: false
           # t.integer "max_capacity", default: 1, null: false
           # t.string "location", null: false
 
