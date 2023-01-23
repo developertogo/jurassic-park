@@ -5,9 +5,9 @@ module Controllers
       class CagesController
         include Swagger::Blocks
 
-        swagger_path '/v1/users/sign_up' do
+        swagger_path '/v1/cages' do
           operation :post do
-            key :summary, 'Sign up'
+            key :summary, 'Manage Cages'
             key :description, 'Create a new user and generate access and refresh tokens'
             key :operationId, 'userSignUp'
             key :tags, [
