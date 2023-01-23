@@ -11,3 +11,6 @@ tr:
       power_status: $power_status
       max_capacity: $max_capacity
       location: $location
+      name: $name
+      species: $species
+      cage_id: $cage_id

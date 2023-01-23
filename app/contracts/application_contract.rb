@@ -5,6 +5,10 @@ require 'dry-validation'
 class ApplicationContract < Dry::Validation::Contract
   config.messages.backend = :i18n
 
+  #
+  # NOTE: Not able to get unique validation to work for the 4 methods below
+  #
+
   UniqueNameCageSchema = Dry::Schema.Params do
       required(:id).value { uuid_v4? }
       required(:attr_name).value(:string)

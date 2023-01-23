@@ -5,9 +5,10 @@ module Dinosaurs
     params do
       required(:id).filled(:uuid_v4?)
 
-      specieses = Park::Dinosaurs::SPECIES.map { |s| s.to_s.downcase }
+      values = Park::Dinosaurs::SPECIES.map { |s| s.to_s.downcase }
       optional(:name) { str? } # & UniqueNameDinosaurSchema.call(id: :id, attr_name: 'name', name: :name) }
-      optional(:species).maybe(Types::String.enum(*specieses))
+      optional(:species).maybe(Types::String.enum(*values))
+      optional(:cage_id) { filled? & uuid_v4? } #& FindCageSchema.call(id: :id) }
     end
   end
 end

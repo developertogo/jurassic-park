@@ -11,7 +11,7 @@ module Cages
     end
 
     test 'validate#tag' do
-      success?(validate({ tag: 'T Rex' }), :tag, CONTRACT)
+      success?(validate({ tag: 'C-001' }), :tag, CONTRACT)
       filled?(validate({ tag: nil }), :tag, CONTRACT)
       filled?(validate({ tag: '' }), :tag, CONTRACT)
     end
