@@ -9,6 +9,6 @@
 
 # if there is no OAuth application created, create them
 if Doorkeeper::Application.count.zero?
-  Doorkeeper::Application.create(name: "Park Manager", uid: "e7c8f8f0-e8e0-4b0f-b8b1-f8f8f8f8f8f8", 
+  Doorkeeper::Application.create(name: "Park Manager", uid: "e7c8f8f0-e8e0-4b0f-b8b1-f8f8f8f8f8f8",
                                  secret: "e7c8f8f0-e8e0-4b0f-b8b1-f8f8f8f8f8f8", redirect_uri: "", scopes: "")
 end

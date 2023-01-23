@@ -6,7 +6,7 @@ module V1
 
     setup do
       @cage = create(:cage)
-      @dinosaur = create(:dinosaur) 
+      @dinosaur = create(:dinosaur)
       @params = attributes_for(:dinosaur)
       @params[:cage_id] = @cage.id
       @doorkeeper_application = create(:doorkeeper_application)

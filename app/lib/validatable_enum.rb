@@ -1,7 +1,7 @@
 module ValidatableEnum
   extend ActiveSupport::Concern
 
-  class_methods do 
+  class_methods do
     def validatable_enum(*enums_to_fix)
       enums_to_fix.each do |element|
         decorate_attribute_type(element) do |subtype|

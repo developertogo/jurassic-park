@@ -16,7 +16,7 @@ module Cages
     end
 
     rule(:max_capacity) do
-      key.failure("the max capacity is #{Cage::MAX_CAPACITY}") if value > Cage::MAX_CAPACITY 
+      key.failure("the max capacity is #{Cage::MAX_CAPACITY}") if value > Cage::MAX_CAPACITY
     end
   end
 end

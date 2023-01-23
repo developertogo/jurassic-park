@@ -1,7 +1,7 @@
 # Service Generator Documentation
 This boilerplate is using `dry-monads` gem for service structure. If you need service, you can use custom service generator like that:
 ```bash
-$ rails generate service Facebook::Adset 
+$ rails generate service Facebook::Adset
 ```
 
 Then, it will create some service classes for your operations.

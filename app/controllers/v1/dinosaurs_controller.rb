@@ -59,7 +59,7 @@ module V1
       params.permit(:id, :name, :species, :cage_id)
     end
 
-    def fetch 
+    def fetch
       operation = ::Dinosaurs::FetchOperation.new(params: dinosaur_params,
                                                   doorkeeper_application: current_doorkeeper_application).call
       if operation.success?

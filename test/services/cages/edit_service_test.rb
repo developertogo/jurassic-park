@@ -38,7 +38,7 @@ module Cages
         cage.reload
 
         assert service.failure?
-        assert_equal "Unable to power off cage #{cage.tag}. It's not empty, it contains #{cage.dinosaurs_count} dinosaurs", service.failure[:errors][0] 
+        assert_equal "Unable to power off cage #{cage.tag}. It's not empty, it contains #{cage.dinosaurs_count} dinosaurs", service.failure[:errors][0]
       end
     end
   end

@@ -25,7 +25,7 @@ const response = await axios.get('/users', {
   }
 })
 ```
---- 
+---
 
 ## List of all possible predicates
 

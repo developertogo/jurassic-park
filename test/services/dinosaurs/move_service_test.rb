@@ -42,7 +42,7 @@ module Dinosaurs
         cage.reload
 
         assert service.failure?
-        assert_equal "Unable to move to cage #{cage.tag}. It's full (max capacity is #{cage.max_capacity})", service.failure[:errors][0] 
+        assert_equal "Unable to move to cage #{cage.tag}. It's full (max capacity is #{cage.max_capacity})", service.failure[:errors][0]
       end
     end
 
@@ -58,7 +58,7 @@ module Dinosaurs
         cage.reload
 
         assert service.failure?
-        assert_equal "Unable to move to cage #{cage.tag}. It's power status is down", service.failure[:errors][0] 
+        assert_equal "Unable to move to cage #{cage.tag}. It's power status is down", service.failure[:errors][0]
       end
     end
 
@@ -78,7 +78,7 @@ module Dinosaurs
         cage.reload
 
         assert service.failure?
-        assert_equal "Unable to move to cage #{cage.tag}. It contains #{cage.dinosaurs[0].diet}, a different species", service.failure[:errors][0] 
+        assert_equal "Unable to move to cage #{cage.tag}. It contains #{cage.dinosaurs[0].diet}, a different species", service.failure[:errors][0]
       end
     end
   end

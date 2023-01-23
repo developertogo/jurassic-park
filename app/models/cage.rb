@@ -66,7 +66,7 @@ class Cage < ApplicationRecord
   end
 
   def check_same_species?(dinosaur)
-    if dinosaurs_count > 0 && dinosaur.species != dinosaurs[0].species 
+    if dinosaurs_count > 0 && dinosaur.species != dinosaurs[0].species
       errors.add(:base, "Unable to move to cage #{tag}. It contains #{dinosaurs[0].diet}, a different species")
       raise ActiveRecord::RecordInvalid, self
     end
@@ -79,13 +79,13 @@ class Cage < ApplicationRecord
     end
   end
 
-  # NOTE: 
+  # NOTE:
   # 1) Tried to avoid calling `case.dinosaurs.count`, but managing the count this was not possible
   # def init
   #   self.dinosaurs_count = 0 if self.dinosaurs_count.blank?
   # end
   #
-  # 2) In def check_max_capacity?(dinosaur) during unit testing, 
+  # 2) In def check_max_capacity?(dinosaur) during unit testing,
   #    dinosaurs_count is nil even though it shows that it was set in init() above
   #      return if dinosaurs_count.blank?
   #
