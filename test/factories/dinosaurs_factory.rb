@@ -10,7 +10,7 @@ FactoryBot.define do
                                         to: Park::Dinosaurs::SPECIES.length-1)
   end
   factory :dinosaur do
-    association :cage
+    association :cage, power_status: :active, dinosaurs_count: 1
     name { Faker::Name.unique.name }
     diet { Park::Dinosaurs::DIET[diet_idx].to_s }
     species { Park::Dinosaurs::SPECIES[species_idx].to_s }

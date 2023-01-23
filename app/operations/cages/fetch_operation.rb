@@ -8,7 +8,6 @@ module Cages
 
     def call
       contract_params = yield validate(contract)
-      #binding.pry
       result = yield call_service(contract_params)
 
       Success(result)

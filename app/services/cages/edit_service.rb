@@ -20,7 +20,6 @@ module Cages
     end
 
     def update_cage(cage)
-      #binding.pry
       return Success('Cage saved!') if cage.update(params)
 
       resource_failure(cage)

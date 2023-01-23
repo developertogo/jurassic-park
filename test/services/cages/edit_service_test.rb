@@ -24,5 +24,22 @@ module Cages
         assert_equal 'Cage saved!', service.success
       end
     end
+
+    test 'should not allow to power `down` if it contains dinosaurs' do
+      params = { id: cage.id,
+                 power_status: :down }
+      cage[:power_status] = :active
+      cage[:dinosaurs_count] = 1
+      dinosaur = create(:dinosaur, cage: cage)
+
+      assert_no_changes -> { cage.dinosaurs_count } do
+        service = Cages::EditService.new(params:, doorkeeper_application:).call
+
+        cage.reload
+
+        assert service.failure?
+        assert_equal "Unable to power off cage #{cage.tag}. It's not empty, it contains #{cage.dinosaurs_count} dinosaurs", service.failure[:errors][0] 
+      end
+    end
   end
 end
