@@ -3,7 +3,7 @@
 module Dinosaurs
   class MoveService < ApplicationService
     option :params, type: Types::Hash
-    attr_accessor :dinosaur, :cage, :cage_old
+    attr_reader :dinosaur, :cage, :cage_old
 
     def call
       new_cage = Cage.find(params[:cage_id])
@@ -11,18 +11,18 @@ module Dinosaurs
       old_cage = dinosaur.cage
 
       ActiveRecord::Base.transaction(requires_new: true) do
-        old_cage.dinosaurs.delete(dinosaur)
-        old_cage.save
+        new_cage.dinosaurs << dinosaur
+        new_cage.save
         dinosaur.cage = new_cage
         dinosaur.save
+        old_cage.dinosaurs.delete(dinosaur)
+        old_cage.save
       end
 
-      new_cage.dinosaurs << dinosaur
-
-      return Success(dinosaur) if new_cage.save
+      return Success(dinosaur) #if new_cage.save
 
     rescue Exception => ex
-      resource_failure(dinosaur)
+      resource_failure(new_cage)
     end
   end
 end

@@ -2,8 +2,7 @@ require "test_helper"
 
 module V1
   class DinosaursControllerTest < ActionDispatch::IntegrationTest
-    attr_reader :doorkeeper_application
-    attr_accessor :params
+    attr_reader :params, :doorkeeper_application
 
     setup do
       @cage = create(:cage)
