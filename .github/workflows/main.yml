@@ -79,7 +79,7 @@ jobs:
           bundle exec rails db:schema:load
 
       - name: Running rails tests
-        run: bundle exec rails test
+        run: bundle exec rails test --verbose
 
   rubocop:
     strategy:
@@ -104,7 +104,7 @@ jobs:
         run: bundle install
 
       - name: Rubocop
-        run: bundle exec rubocop --config .rubocop.yml --parallel
+        run: bundle exec rubocop --verbose --config .rubocop.yml --parallel
 
   zeitwerk:
     env:
