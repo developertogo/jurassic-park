@@ -1,8 +1,6 @@
 require './app/lib/park.rb'
 
 class Dinosaur < ApplicationRecord
-  include ValidatableEnum
-
   # NOTE: tried to use counter_cache but cage.dinosaurs_count becomes -1
   # attempting to move a dinosaur from the "from" cage containing just this dinosaur.
   # Expected the count to be 0, but not -1; even from_cage.dinosaurs.size returns -1
