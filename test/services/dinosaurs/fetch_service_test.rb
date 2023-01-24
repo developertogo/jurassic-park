@@ -47,7 +47,7 @@ module Dinosaurs
         params = { id: 0 }
         service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
 
-        assert service.success?
+        assert service.failure?
       end
     end
   end

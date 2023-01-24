@@ -11,6 +11,7 @@ class Cage < ApplicationRecord
     #after_remove: :decrement_dinosaurs_count
   #after_initialize :init
 
+  before_destroy :check_dinosaurs_count?
   before_save :check_power_status?
   after_save :update_dinosaurs_count
 
@@ -75,6 +76,13 @@ class Cage < ApplicationRecord
   def check_power_status?
     if power_status == :down.to_s && dinosaurs_count > 0
       errors.add(:base, "Unable to power off cage #{tag}. It's not empty, it contains #{dinosaurs_count} dinosaurs")
+      raise ActiveRecord::RecordInvalid, self
+    end
+  end
+
+  def check_dinosaurs_count?
+    if dinosaurs_count > 0
+      errors.add(:base, "Unable to delete cage #{tag}. It's not empty, it contains #{dinosaurs_count} dinosaurs")
       raise ActiveRecord::RecordInvalid, self
     end
   end

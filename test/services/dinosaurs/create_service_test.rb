@@ -13,9 +13,7 @@ module Dinosaurs
     end
 
     test 'should create dinosaur' do
-      # TODO: return Actual: 0 when Expected: 1
-      #assert_difference 'Dinosaur.count' do
-      assert_nothing_raised do
+      assert_difference 'Dinosaur.count', 1 do
         params[:cage_id] = @cage.id
         service = Dinosaurs::CreateService.new(params:, doorkeeper_application:).call
 

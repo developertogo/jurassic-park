@@ -20,8 +20,11 @@ module Dinosaurs
     end
 
     def delete_dinosaur(dinosaur)
-      return Success('Dinosaur deleted!') if dinosaur.destroy
+      dinosaur.destroy
 
+      return Success('Dinosaur deleted!')
+
+    rescue Exception => ex
       resource_failure(dinosaur)
     end
   end

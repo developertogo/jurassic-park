@@ -10,7 +10,6 @@ class Dinosaur < ApplicationRecord
 
   attr_reader :diet
 
-  after_update :update_diet
   before_save :update_diet
 
   # Workaround: using this callback to update cage.dinosaurs_count 'cause read line 6 above

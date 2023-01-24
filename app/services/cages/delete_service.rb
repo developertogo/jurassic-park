@@ -20,8 +20,11 @@ module Cages
     end
 
     def delete_cage(cage)
-      return Success('Cage deleted!') if cage.destroy
+      cage.destroy
 
+      return Success('Cage deleted!')
+
+    rescue Exception => ex
       resource_failure(cage)
     end
   end
