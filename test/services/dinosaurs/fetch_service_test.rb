@@ -11,22 +11,22 @@ module Dinosaurs
       @doorkeeper_application = create(:doorkeeper_application)
     end
 
-    # test 'should fetch dinosaur successfully' do
-    #   assert_nothing_raised do
-    #     params = { id: dinosaur.id }
-    #     service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
+    test 'should fetch dinosaur successfully' do
+      assert_nothing_raised do
+        params = { id: dinosaur.id }
+        service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
 
-    #     assert service.success?
-    #   end
-    # end
+        assert service.success?
+      end
+    end
 
-    # test 'should fetch dinosaur list sucessfully' do
-    #   assert_nothing_raised do
-    #     service = Dinosaurs::FetchService.new(params: {}, doorkeeper_application:).call
+    test 'should fetch dinosaur list sucessfully' do
+      assert_nothing_raised do
+        service = Dinosaurs::FetchService.new(params: {}, doorkeeper_application:).call
 
-    #     assert service.success?
-    #   end
-    # end
+        assert service.success?
+      end
+    end
 
     test 'should fetch dinosaur list filtered by species sucessfully' do
       assert_nothing_raised do
@@ -42,13 +42,13 @@ module Dinosaurs
       end
     end
 
-    # test 'should not fetch dinosaur with an unknown id' do
-    #   assert_raise 'ActiveRecord::RecordNotFound' do
-    #     params = { id: 0 }
-    #     service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
+    test 'should not fetch dinosaur with an unknown id' do
+      assert_raise 'ActiveRecord::RecordNotFound' do
+        params = { id: 0 }
+        service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
 
-    #     assert service.failure?
-    #   end
-    # end
+        assert service.failure?
+      end
+    end
   end
 end
