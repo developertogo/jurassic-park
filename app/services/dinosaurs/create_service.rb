@@ -6,7 +6,7 @@ module Dinosaurs
 
     def call
       dinosaur = yield create_resource(Dinosaur)
-      return Success(dinosaur)
+      Success(dinosaur)
     end
   end
 end

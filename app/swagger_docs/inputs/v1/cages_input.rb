@@ -21,7 +21,7 @@ module Inputs
           end
 
           property :power_status do
-            key :type, :enum 
+            key :type, :enum
             key :example, 'down'
           end
 

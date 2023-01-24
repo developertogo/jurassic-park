@@ -24,8 +24,8 @@ resources :dinosaurs
 # patch 'cages/:id', to: 'cages#update'
 # delete 'cages/:id', to: 'cages#destroy'
 
-  # get 'dinosaurs', to: 'dinosaurs#index'
-  # get 'dinosaurs/:id', to: 'dinosaurs#show'
-  # post 'dinosaurs', to: 'dinosaurs#create'
-  # patch 'dinosaurs/:id/move/:cage_id', to: 'dinosaurs#move'
-  # patch 'dinosaurs', to: 'dinosaurs#update'
+# get 'dinosaurs', to: 'dinosaurs#index'
+# get 'dinosaurs/:id', to: 'dinosaurs#show'
+# post 'dinosaurs', to: 'dinosaurs#create'
+# patch 'dinosaurs/:id/move/:cage_id', to: 'dinosaurs#move'
+# patch 'dinosaurs', to: 'dinosaurs#update'

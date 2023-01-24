@@ -6,7 +6,7 @@ module Cages
 
     def call
       cage = yield create_resource(Cage)
-      return Success(cage)
+      Success(cage)
     end
   end
 end

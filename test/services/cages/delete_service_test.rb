@@ -23,7 +23,7 @@ module Cages
     end
 
     test 'should not delete cage when it contains dinosaurs' do
-      dinosaur = create(:dinosaur, cage: cage)
+      create(:dinosaur, cage:)
       params = { id: cage.id }
 
       assert_no_difference -> { cage.dinosaurs_count } do

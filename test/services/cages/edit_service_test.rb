@@ -30,7 +30,7 @@ module Cages
                  power_status: :down }
       cage[:power_status] = :active
       cage[:dinosaurs_count] = 1
-      dinosaur = create(:dinosaur, cage: cage)
+      create(:dinosaur, cage:)
 
       assert_no_changes -> { cage.dinosaurs_count } do
         service = Cages::EditService.new(params:, doorkeeper_application:).call

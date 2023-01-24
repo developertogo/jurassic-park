@@ -5,11 +5,7 @@ module Dinosaurs
     option :params, type: Types::Hash
 
     def call
-      if params[:id].present?
-        result = yield fetch_one_dinosaur
-      else
-        result = yield fetch_dinosaurs
-      end
+      result = params[:id].present? ? fetch_one_dinosaur : fetch_dinosaurs
 
       Success(result)
     end
@@ -17,15 +13,11 @@ module Dinosaurs
     private
 
     def fetch_one_dinosaur
-      dinosaur = Dinosaur.find(params[:id])
-
-      Success(dinosaur)
+      Dinosaur.find(params[:id])
     end
 
     def fetch_dinosaurs
-      dinosaurs = Dinosaur.ransack(params[:query]).result
-
-      Success(dinosaurs)
+      Dinosaur.ransack(params[:query]).result
     end
   end
 end
