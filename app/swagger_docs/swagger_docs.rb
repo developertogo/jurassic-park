@@ -17,7 +17,7 @@ class SwaggerDocs
     Controllers::V1::Users::RegistrationsController,
     Controllers::V1::Users::PasswordsController,
     Controllers::V1::CagesController,
-    #Controllers::V1::DinosaursController,
+    # Controllers::V1::DinosaursController,
     ## Inputs ##
     Inputs::V1::User::SignInInput,
     Inputs::V1::User::SignUpInput,

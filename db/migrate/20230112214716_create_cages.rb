@@ -1,4 +1,6 @@
-require './app/lib/park.rb'
+# frozen_string_literal: true
+
+require './app/lib/park'
 
 class CreateCages < ActiveRecord::Migration[7.0]
   def change

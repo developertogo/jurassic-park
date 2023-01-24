@@ -25,14 +25,14 @@ module Dinosaurs
         cage_to.reload
 
         assert service.success?
-        assert_equal 0, cage_from.dinosaurs_count, "Cage (from) dinosaurs count should be 0"
-        assert_equal 1, cage_to.dinosaurs_count, "Cage (to) dinosaur count should be 1"
+        assert_equal 0, cage_from.dinosaurs_count, 'Cage (from) dinosaurs count should be 0'
+        assert_equal 1, cage_to.dinosaurs_count, 'Cage (to) dinosaur count should be 1'
       end
     end
 
     test 'should not move dinosaur if cage has reached max capacity' do
       cage = create(:cage, max_capacity: 1, power_status: :active)
-      dinosaur_2 = create(:dinosaur, cage: cage)
+      create(:dinosaur, cage:)
 
       params = { id: dinosaur.id,
                  cage_id: cage.id }
@@ -64,7 +64,7 @@ module Dinosaurs
 
     test 'show not move a dinosaur to a cage containing dinosaurs of a diffrent species' do
       cage = create(:cage, max_capacity: 2, power_status: :active)
-      dinosaur_2 = create(:dinosaur, species: :velociraptor, cage: cage)
+      create(:dinosaur, species: :velociraptor, cage:)
 
       dinosaur[:species] = :tyrannosaurus
       dinosaur.save

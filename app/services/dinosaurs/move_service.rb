@@ -19,9 +19,8 @@ module Dinosaurs
         old_cage.save
       end
 
-      return Success(dinosaur) #if new_cage.save
-
-    rescue Exception => ex
+      Success(dinosaur)
+    rescue StandardError
       resource_failure(new_cage)
     end
   end

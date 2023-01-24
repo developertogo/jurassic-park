@@ -34,7 +34,7 @@ module V1
 
     def update
       operation = ::Dinosaurs::EditOperation.new(params: dinosaur_params,
-                                                  doorkeeper_application: current_doorkeeper_application).call
+                                                 doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
         render json: operation.success, status: :ok
       else

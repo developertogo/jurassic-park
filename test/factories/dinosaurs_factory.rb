@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
+def carnivores_idx
+  Faker::Number.between(from: 0, to: Park::Dinosaurs::CARNIVORES.length - 1)
+end
+
+def herbivores_idx
+  Faker::Number.between(from: Park::Dinosaurs::CARNIVORES.length, to: Park::Dinosaurs::SPECIES.length - 1)
+end
+
 FactoryBot.define do
   diet_idx = Faker::Number.between(from: 0, to: 1)
-  if diet_idx == 0
-    species_idx = Faker::Number.between(from: 0,
-                                        to: Park::Dinosaurs::CARNIVORES.length-1)
-  else
-    species_idx = Faker::Number.between(from: Park::Dinosaurs::CARNIVORES.length,
-                                        to: Park::Dinosaurs::SPECIES.length-1)
-  end
+  species_idx = diet_idx.zero? ? carnivores_idx : herbivores_idx
+
   factory :dinosaur do
     association :cage, power_status: :active, dinosaurs_count: 1
     name { Faker::Name.unique.name }

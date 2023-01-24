@@ -24,7 +24,7 @@ module V1
 
     def update
       operation = ::Cages::EditOperation.new(params: cage_params,
-                                              doorkeeper_application: current_doorkeeper_application).call
+                                             doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
         render json: operation.success, status: :ok
       else

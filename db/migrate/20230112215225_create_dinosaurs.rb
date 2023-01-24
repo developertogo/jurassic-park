@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency './app/lib/park.rb'
 
 class CreateDinosaurs < ActiveRecord::Migration[7.0]

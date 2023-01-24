@@ -43,7 +43,7 @@ module Cages
     end
 
     test 'should fetch dinosaurs in a specific cage sucessfully' do
-      dinosaur = create(:dinosaur, :cage_id => @cage.id)
+      dinosaur = create(:dinosaur, cage_id: @cage.id)
       assert_nothing_raised do
         params = {
           id: cage.id,
