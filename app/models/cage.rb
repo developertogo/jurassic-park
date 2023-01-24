@@ -1,8 +1,6 @@
 require './app/lib/park.rb'
 
 class Cage < ApplicationRecord
-  include ValidatableEnum
-
   has_many :dinosaurs, dependent: :nullify, inverse_of: :cage,
     before_add: [:check_max_capacity?, :check_power_status_on_add?, :check_same_species?]
 

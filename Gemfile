@@ -43,7 +43,7 @@ group :development, :test do
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
 
   # A library for generating fake data [https://github.com/faker-ruby/faker]
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 
   # Pretty print your Ruby objects [https://github.com/awesome-print/awesome_print]
   gem 'awesome_print'
