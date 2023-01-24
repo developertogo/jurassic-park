@@ -6,9 +6,11 @@ module Dinosaurs
   class CreateContract < ApplicationContract
     params do
       values = Park::Dinosaurs::SPECIES.map { |s| s.to_s.downcase }
-      required(:name) { filled? & str? } # & UniqueNameDinosaurSchema.call(id: :id, attr_name: 'name', name: :name) }
+      # NOTE: Attempted to check uniqueness before reaching to the DB with no success,
+      # see work in branch: https://github.com/developertogo/jurassic-park/tree/uniqueness-enum-validation
+      required(:name) { filled? & str? }
       required(:species).filled(Types::String.enum(*values))
-      required(:cage_id) { filled? & uuid_v4? } # & FindCageSchema.call(id: :id) }
+      required(:cage_id) { filled? & uuid_v4? }
     end
   end
 end

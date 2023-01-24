@@ -6,7 +6,9 @@ module Cages
   class CreateContract < ApplicationContract
     params do
       values = Park::Cages::POWER_STATUS.map { |v| v.to_s.downcase }
-      required(:tag) { filled? & str? } # & UniqueNameCageSchema.call(id: :id, attr_name: 'tag', name: :tag) }
+      # NOTE: Attempted to check uniqueness before reaching to the DB with no success,
+      # see work in branch: https://github.com/developertogo/jurassic-park/tree/uniqueness-enum-validation
+      required(:tag) { filled? & str? }
       required(:power_status).filled(included_in?: values)
       # another alternative
       # required(:power_status).filled(Types::String.enum(*values))
