@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require './app/lib/park.rb'
+# require './app/lib/park'
 
 module Cages
   class CreateContract < ApplicationContract
@@ -12,12 +12,12 @@ module Cages
       required(:power_status).filled(included_in?: values)
       # another alternative
       # required(:power_status).filled(Types::String.enum(*values))
-      required(:max_capacity).filled(:int?, gt?: 0, lteq?: Cage::MAX_CAPACITY)
+      required(:max_capacity).filled(:int?, gt?: 0, lteq?: Park::Cages::MAX_CAPACITY)
       required(:location).filled(:string)
     end
 
     rule(:max_capacity) do
-      key.failure("the max capacity is #{Cage::MAX_CAPACITY}") if value > Cage::MAX_CAPACITY
+      key.failure("the max capacity is #{Park::Cages::MAX_CAPACITY}") if value > Park::Cages::MAX_CAPACITY
     end
   end
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require './app/lib/park'
 
 module Cages
   class CreateContractTest < ActiveSupport::TestCase
@@ -28,7 +29,7 @@ module Cages
       filled?(validate({ max_capacity: nil }), :max_capacity, CONTRACT)
       filled?(validate({ max_capacity: '' }), :max_capacity, CONTRACT)
       gt?(validate({ max_capacity: 0 }), :max_capacity, 0, CONTRACT)
-      lteq?(validate({ max_capacity: Cage::MAX_CAPACITY + 1 }), :max_capacity, Cage::MAX_CAPACITY, CONTRACT)
+      lteq?(validate({ max_capacity: Park::Cages::MAX_CAPACITY + 1 }), :max_capacity, Park::Cages::MAX_CAPACITY, CONTRACT)
     end
 
     test 'validate#location' do

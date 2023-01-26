@@ -3,6 +3,7 @@
 module Park
   module Cages
     POWER_STATUS = %i[active down].freeze
+    MAX_CAPACITY = 100
   end
 
   module Dinosaurs
