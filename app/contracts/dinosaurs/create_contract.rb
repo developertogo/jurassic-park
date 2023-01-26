@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# require './app/lib/park.rb'
+# require './app/lib/park'
 
 module Dinosaurs
   class CreateContract < ApplicationContract

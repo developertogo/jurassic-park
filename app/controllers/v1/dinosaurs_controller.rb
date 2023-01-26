@@ -26,7 +26,7 @@ module V1
       operation = ::Dinosaurs::MoveOperation.new(params: dinosaur_params,
                                                  doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
-        render json: operation.success, status: :ok
+        render json: operation.success, status: :no_content
       else
         render json: operation.failure, status: :unprocessable_entity
       end
@@ -36,7 +36,7 @@ module V1
       operation = ::Dinosaurs::EditOperation.new(params: dinosaur_params,
                                                  doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
-        render json: operation.success, status: :ok
+        render json: operation.success, status: :no_content
       else
         render json: operation.failure, status: :unprocessable_entity
       end
@@ -46,7 +46,7 @@ module V1
       operation = ::Dinosaurs::DeleteOperation.new(params: dinosaur_params,
                                                    doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
-        render json: operation.success, status: :ok
+        render json: operation.success, status: :no_content
       else
         render json: operation.failure, status: :unprocessable_entity
       end

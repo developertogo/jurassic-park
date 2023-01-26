@@ -18,7 +18,6 @@ module Cages
         service = Cages::DeleteService.new(params:, doorkeeper_application:).call
 
         assert service.success?
-        assert_equal 'Cage deleted!', service.success
       end
     end
 

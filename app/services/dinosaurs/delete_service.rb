@@ -22,7 +22,7 @@ module Dinosaurs
     def delete_dinosaur(dinosaur)
       dinosaur.destroy
 
-      Success('Dinosaur deleted!')
+      Success()
     rescue StandardError
       resource_failure(dinosaur)
     end

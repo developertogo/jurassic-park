@@ -20,7 +20,7 @@ module Dinosaurs
     end
 
     def update_dinosaur(dinosaur)
-      return Success('Dinosaur saved!') if dinosaur.update(params)
+      return Success() if dinosaur.update(params)
 
       resource_failure(dinosaur)
     end

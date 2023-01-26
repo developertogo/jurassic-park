@@ -50,7 +50,7 @@ module V1
     end
 
     test 'should update dinosaur' do
-      patch v1_dinosaur_url(@dinosaur), params:, as: :json
+      patch v1_dinosaur_update_url(@dinosaur), params:, as: :json
       assert_response :success
     end
 

@@ -18,7 +18,6 @@ module Dinosaurs
         service = Dinosaurs::DeleteService.new(params:, doorkeeper_application:).call
 
         assert service.success?
-        assert_equal 'Dinosaur deleted!', service.success
       end
     end
   end

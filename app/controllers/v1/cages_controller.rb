@@ -26,7 +26,7 @@ module V1
       operation = ::Cages::EditOperation.new(params: cage_params,
                                              doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
-        render json: operation.success, status: :ok
+        render json: operation.success, status: :no_content
       else
         render json: operation.failure, status: :unprocessable_entity
       end
@@ -36,7 +36,7 @@ module V1
       operation = ::Cages::DeleteOperation.new(params: cage_params,
                                                doorkeeper_application: current_doorkeeper_application).call
       if operation.success?
-        render json: operation.success, status: :ok
+        render json: operation.success, status: :no_content
       else
         render json: operation.failure, status: :unprocessable_entity
       end

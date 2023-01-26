@@ -20,7 +20,7 @@ module Cages
     end
 
     def update_cage(cage)
-      return Success('Cage saved!') if cage.update(params)
+      return Success() if cage.update(params)
 
       resource_failure(cage)
     end

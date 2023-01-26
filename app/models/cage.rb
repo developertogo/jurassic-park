@@ -14,8 +14,6 @@ class Cage < ApplicationRecord
 
   enum :power_status, Park::Cages::POWER_STATUS.zip(Park::Cages::POWER_STATUS.map(&:to_s)).to_h, default: :down, scopes: false
 
-  MAX_CAPACITY = 100
-
   validates :max_capacity, numericality: { in: 1..100 }
   validates :tag, presence: true, uniqueness: true, allow_blank: false
   validates :location, presence: true, allow_blank: false

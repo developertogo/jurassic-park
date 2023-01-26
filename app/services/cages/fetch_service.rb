@@ -5,12 +5,6 @@ module Cages
     option :params, type: Types::Hash
 
     def call
-      # if params[:id].present?
-      #   result = yield fetch_one_cage
-      # else
-      #   result = yield fetch_cages
-      # end
-
       result = yield params[:id].present? ? fetch_one_cage : fetch_cages
       Success(result)
     end

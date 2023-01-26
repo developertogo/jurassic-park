@@ -21,7 +21,6 @@ module Cages
         cage.reload
 
         assert service.success?
-        assert_equal 'Cage saved!', service.success
       end
     end
 

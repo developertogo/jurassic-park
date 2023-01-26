@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency './app/lib/park.rb'
+require_dependency './app/lib/park'
 
 class CreateDinosaurs < ActiveRecord::Migration[7.0]
   def change

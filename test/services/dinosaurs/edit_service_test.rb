@@ -23,7 +23,6 @@ module Dinosaurs
         dinosaur.reload
 
         assert service.success?
-        assert_equal 'Dinosaur saved!', service.success
       end
     end
   end
