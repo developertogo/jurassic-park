@@ -13,7 +13,7 @@ The intend of this repo is to address the problem (assignment) described in [The
 
 ## Design and Development Strategy
 
-The source code is based on the [Rails API Boilerplate](https://github.com/shftco/rails-api-boilerplate). Although, it includes more gems that is required for this project, it includes a great workflow handling of the HTTP request, see [How to Works?](https://github.com/shftco/rails-api-boilerplate#how-to-works) section. This _boilerplate_ is also a great starting point to expand the application with more features and functionalities later.
+The source code is based on the [Rails API Boilerplate](https://github.com/shftco/rails-api-boilerplate). Although, it includes more gems that is required for this project, it has a great workflow handling of the HTTP request, see a diagram at [How to Works?](https://github.com/shftco/rails-api-boilerplate#how-to-works) section. The intend is to not crowd the controller or models with business logic. This _boilerplate_ is also a great starting point to expand the application with more features and functionalities later.
 
 ## Business Assumptions
 
@@ -100,6 +100,15 @@ Some [requirements](#business-requirements) which were not mentioned in the assi
 
   `reset` is equivalent of `rails db:drop & rails db:setup`.
   &nbsp;
+
+## Known Issues
+
+1. Missing query parameters validation
+   _Work is under progress_ using [dry-validation](https://dry-rb.org/gems/dry-validation/1.8/)
+
+### Unit Tests Skipped
+
+1. _Show resource APIs_: `v1/cages/{id}` and `v1/dinosaurs/{id}` were skipped because it keeps failing with this error `ActionController::RoutingError: No route matches [POST]` when indeed the routes clearly show they GET requests, see http://localhost:3000/rails/info/routes, when it's running.
 
 ## Running in a Concurrent Environment
 
