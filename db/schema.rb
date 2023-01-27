@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_215225) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "diets", ["herbivores", "carnivores"]
+  create_enum "diets", ["carnivores", "herbivores"]
   create_enum "power_statuses", ["active", "down"]
   create_enum "specieses", ["tyrannosaurus", "giganotosaurus", "velociraptor", "spinosaurus", "megalosaurus", "yutyrannus", "acrocanthosaurus", "carnotaurus", "deinonychus", "allosaurus", "troodon", "herrerasaurus", "brachiosaurus", "stegosaurus", "ankylosaurus", "triceratops", "diplodocus", "dracorex", "moschops", "argentinosaurus", "edmontosaurus", "hadrosaurus", "nodosaurus"]
 

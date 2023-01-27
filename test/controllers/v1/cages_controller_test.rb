@@ -49,7 +49,8 @@ module V1
     end
 
     test 'should update cage' do
-      patch v1_cage_url(@cage), params:, as: :json
+      p = params.except(:max_capacity)
+      patch v1_cage_url(@cage), params: p, as: :json
 
       assert_response :success
     end

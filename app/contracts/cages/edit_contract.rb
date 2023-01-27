@@ -11,7 +11,12 @@ module Cages
       optional(:power_status).maybe(Types::String.enum(*values))
       # another alternative
       # optional(:power_status).maybe(included_in?: values)
+      optional(:max_capacity) { int? }
       optional(:location).maybe(:string)
+    end
+
+    rule(:max_capacity) do
+      key.failure('updating max_capacity is prohibited') if value.present?
     end
   end
 end

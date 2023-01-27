@@ -22,12 +22,6 @@ module Inputs
             key :example, Park::Cages::POWER_STATUS[0]
           end
 
-          property :max_capacity do
-            key :type, :integer
-            key :description, 'how many dinosaurs the cage can hold'
-            key :example, 8
-          end
-
           property :location do
             key :type, :string
             key :example, 'SFO'
