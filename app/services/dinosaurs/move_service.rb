@@ -3,7 +3,7 @@
 module Dinosaurs
   class MoveService < ApplicationService
     option :params, type: Types::Hash
-    attr_reader :dinosaur, :cage, :cage_old
+    attr_reader :dinosaur, :new_cage, :old_cage
 
     def call
       new_cage = Cage.find(params[:cage_id])
@@ -12,11 +12,13 @@ module Dinosaurs
 
       ActiveRecord::Base.transaction(requires_new: true) do
         new_cage.dinosaurs << dinosaur
-        new_cage.save
+        return resource_failure(new_cage) unless new_cage.save
+
         dinosaur.cage = new_cage
-        dinosaur.save
-        old_cage.dinosaurs.delete(dinosaur)
-        old_cage.save
+        return resource_failure(dinosaur) unless dinosaur.save
+
+        old_cage&.dinosaurs&.delete(dinosaur)
+        return resource_failure(old_cage) unless old_cage&.save
       end
 
       Success(dinosaur)

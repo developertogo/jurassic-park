@@ -10,7 +10,11 @@ module Dinosaurs
       # see work in branch: https://github.com/developertogo/jurassic-park/tree/uniqueness-enum-validation
       required(:name) { filled? & str? }
       required(:species).filled(Types::String.enum(*values))
-      required(:cage_id) { filled? & uuid_v4? }
+      optional(:cage_id) { filled? & uuid_v4? }
+    end
+
+    rule(:cage_id) do
+      key.failure('updating cage_id is prohibited, use move API instead') if value.present?
     end
   end
 end

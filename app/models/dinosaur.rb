@@ -7,7 +7,7 @@ class Dinosaur < ApplicationRecord
   # When moving dinosaur from the "from" cage containing just this dinosaur.
   # Expected the count = 0, but not -1; even from_cage.dinosaurs.size returns -1
   # belongs_to :cage #, counter_cache: true
-  belongs_to :cage
+  belongs_to :cage, optional: true
 
   before_save :update_diet
 
@@ -24,7 +24,7 @@ class Dinosaur < ApplicationRecord
   private
 
   def update_dinosaurs_count
-    cage.update_dinosaurs_count
+    cage&.update_dinosaurs_count
   end
 
   def update_diet

@@ -7,7 +7,8 @@ module Dinosaurs
     attr_reader :params, :dinosaur, :doorkeeper_application
 
     def setup
-      @dinosaur = create(:dinosaur)
+      @cage = create(:cage, power_status: :active)
+      @dinosaur = create(:dinosaur, cage: @cage)
       @doorkeeper_application = create(:doorkeeper_application)
     end
 

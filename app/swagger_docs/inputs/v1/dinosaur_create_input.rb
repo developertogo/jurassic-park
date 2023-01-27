@@ -21,12 +21,6 @@ module Inputs
             key :description, 'cage species'
             key :example, Park::Dinosaurs::SPECIES[0]
           end
-
-          property :cage_id do
-            key :type, :uuid_v4
-            key :description, 'uuid of cage where dinosaur will be contained'
-            key :example, 'e7c8f8f0-e8e0-4b0f-b8b1-f8f8f8f8f8f8'
-          end
         end
       end
     end

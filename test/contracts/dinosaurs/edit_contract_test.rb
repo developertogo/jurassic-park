@@ -25,10 +25,5 @@ module Dinosaurs
       success?(validate({ species: Park::Dinosaurs::SPECIES[0].to_s.downcase }), :species, CONTRACT)
       included_in?(validate({ species: 'up' }), :species, Park::Dinosaurs::SPECIES, CONTRACT)
     end
-
-    test 'validate#cage_id' do
-      success?(validate({ cage_id: 'dae75e6c-d8b7-4d6f-8434-faa300f00ff2' }), :cage_id, CONTRACT)
-      uuid_v4?(validate({ cage_id: '1234567890' }), :cage_id, CONTRACT)
-    end
   end
 end

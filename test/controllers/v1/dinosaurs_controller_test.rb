@@ -10,7 +10,6 @@ module V1
       @cage = create(:cage)
       @dinosaur = create(:dinosaur)
       @params = attributes_for(:dinosaur)
-      @params[:cage_id] = @cage.id
       @doorkeeper_application = create(:doorkeeper_application)
       @params[:client_id] = doorkeeper_application.uid
       @params[:client_secret] = doorkeeper_application.secret
