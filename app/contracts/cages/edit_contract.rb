@@ -10,7 +10,7 @@ module Cages
 
       optional(:power_status).maybe(Types::String.enum(*values))
       # another alternative
-      # optional(:power_status).filled(included_in?: values)
+      # optional(:power_status).maybe(included_in?: values)
       optional(:location).maybe(:string)
     end
   end

@@ -5,6 +5,7 @@ module Dinosaurs
     option :params, type: Types::Hash
 
     def call
+      @qjson = Utils::Json.convert_to_hash params[:query]
       result = params[:id].present? ? fetch_one_dinosaur : fetch_dinosaurs
 
       Success(result)
@@ -17,7 +18,7 @@ module Dinosaurs
     end
 
     def fetch_dinosaurs
-      Dinosaur.ransack(params[:query]).result
+      Dinosaur.ransack(@qjson).result
     end
   end
 end

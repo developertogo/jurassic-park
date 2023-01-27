@@ -9,8 +9,6 @@ class Dinosaur < ApplicationRecord
   # belongs_to :cage #, counter_cache: true
   belongs_to :cage
 
-  attr_reader :diet
-
   before_save :update_diet
 
   # Workaround: using this callback to update cage.dinosaurs_count 'cause read line 6 above
@@ -32,6 +30,6 @@ class Dinosaur < ApplicationRecord
   def update_diet
     return unless species_changed?
 
-    self.diet = (species in Park::Dinosaurs::CARNIVORES) ? :carnivores : :herbivores
+    self.diet = Park::Dinosaurs::CARNIVORES.include?(species.to_sym) ? :carnivores.to_s : :herbivores.to_s
   end
 end

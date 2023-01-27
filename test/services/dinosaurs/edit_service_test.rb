@@ -7,7 +7,7 @@ module Dinosaurs
     attr_reader :params, :dinosaur, :doorkeeper_application
 
     def setup
-      @dinosaur = create(:dinosaur)
+      @dinosaur = create(:dinosaur, species: :moschops)
       @params = attributes_for(:dinosaur)
       @doorkeeper_application = create(:doorkeeper_application)
     end
@@ -23,6 +23,20 @@ module Dinosaurs
         dinosaur.reload
 
         assert service.success?
+      end
+    end
+
+    test 'should update dinosaur\'s diet when it\'s species changes' do
+      params[:id] = dinosaur.id
+      params[:species] = :acrocanthosaurus
+
+      assert_changes -> { dinosaur.updated_at } do
+        service = Dinosaurs::EditService.new(params:, doorkeeper_application:).call
+
+        dinosaur.reload
+
+        assert service.success?
+        assert_equal :carnivores.to_s, dinosaur.diet
       end
     end
   end

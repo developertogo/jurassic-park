@@ -42,6 +42,20 @@ module Dinosaurs
       end
     end
 
+    test 'should fetch dinosaur list successfully filtered by species as a string' do
+      assert_nothing_raised do
+        params = {
+          query: "{\"species_eq\": \"#{@dinosaur.species}\"}"
+        }
+        service = Dinosaurs::FetchService.new(params:, doorkeeper_application:).call
+
+        res = service.success.first
+
+        assert service.success?
+        assert_equal @dinosaur.name, res.name
+      end
+    end
+
     test 'should not fetch dinosaur with an unknown id' do
       assert_raise 'ActiveRecord::RecordNotFound' do
         params = { id: 0 }

@@ -14,3 +14,4 @@ tr:
       name: $name
       species: $species
       cage_id: $cage_id
+      query: $query

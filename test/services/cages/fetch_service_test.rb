@@ -42,12 +42,41 @@ module Cages
       end
     end
 
+    test 'should fetch cage list successfully when filtered power_status as a string' do
+      assert_nothing_raised do
+        params = {
+          query: "{\"power_status_eq\": \"#{@cage.power_status}\"}"
+        }
+        service = Cages::FetchService.new(params:, doorkeeper_application:).call
+
+        res = service.success.first
+
+        assert service.success?
+        assert_equal @cage.tag, res.tag
+      end
+    end
+
     test 'should fetch dinosaurs in a specific cage sucessfully' do
       dinosaur = create(:dinosaur, cage_id: @cage.id)
       assert_nothing_raised do
         params = {
           id: cage.id,
           query: { dinosaurs: '' }
+        }
+        service = Cages::FetchService.new(params:, doorkeeper_application:).call
+        res = service.success.first
+
+        assert service.success?
+        assert_equal dinosaur.name, res.name
+      end
+    end
+
+    test 'should fetch dinosaurs in a specific cage sucessfully when dinosaurs filter is a string' do
+      dinosaur = create(:dinosaur, cage_id: @cage.id)
+      assert_nothing_raised do
+        params = {
+          id: cage.id,
+          query: '{"dinosaurs": ""}'
         }
         service = Cages::FetchService.new(params:, doorkeeper_application:).call
         res = service.success.first

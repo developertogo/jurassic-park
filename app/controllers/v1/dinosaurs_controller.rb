@@ -56,7 +56,7 @@ module V1
 
     # Only allow a list of trusted parameters through.
     def dinosaur_params
-      params.permit(:id, :name, :species, :cage_id)
+      params.permit(:id, :name, :species, :cage_id, :query)
     end
 
     def fetch

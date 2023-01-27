@@ -5,7 +5,9 @@ module Cages
     option :params, type: Types::Hash
 
     def call
-      result = yield params[:id].present? ? fetch_one_cage : fetch_cages
+      @qjson = Utils::Json.convert_to_hash params[:query]
+      result = params[:id].present? ? fetch_one_cage : fetch_cages
+
       Success(result)
     end
 
@@ -14,15 +16,13 @@ module Cages
     def fetch_one_cage
       cage = Cage.find(params[:id])
 
-      return Success(cage.dinosaurs) if params[:query]&.key?(:dinosaurs)
+      return cage.dinosaurs if @qjson&.key?(:dinosaurs)
 
-      Success(cage)
+      cage
     end
 
     def fetch_cages
-      cages = Cage.ransack(params[:query]).result
-
-      Success(cages)
+      Cage.ransack(@qjson).result
     end
   end
 end

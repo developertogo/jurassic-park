@@ -13,6 +13,9 @@ module Doorkeeper
     private
 
     def find_doorkeeper_application!
+      params[:client_id] = request.headers[:HTTP_CLIENT_ID] if request.headers.key?(:HTTP_CLIENT_ID)
+      params[:client_secret] = request.headers[:HTTP_CLIENT_SECRET] if request.headers.key?(:HTTP_CLIENT_SECRET)
+
       @current_doorkeeper_application = Doorkeeper::Application.find_by(uid: params[:client_id],
                                                                         secret: params[:client_secret])
 
