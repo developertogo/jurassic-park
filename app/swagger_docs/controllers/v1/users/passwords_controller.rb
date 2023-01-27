@@ -35,7 +35,7 @@ module Controllers
             end
 
             response 422 do
-              key :description, 'Somethins goes wrong'
+              key :description, 'Somethins went wrong'
               content :'application/json' do
                 schema do
                   key :'$ref', :ErrorResponse
@@ -81,7 +81,7 @@ module Controllers
             end
 
             response 422 do
-              key :description, 'Something goes wrong'
+              key :description, 'Something went wrong'
               content :'application/json' do
                 schema do
                   key :'$ref', :ErrorResponse

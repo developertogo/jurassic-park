@@ -13,7 +13,7 @@ module Responses
             key :type, :array
             items do
               key :type, :string
-              key :example, 'Something goes wrong while executing request'
+              key :example, 'Something went wrong while executing request'
             end
           end
         end
