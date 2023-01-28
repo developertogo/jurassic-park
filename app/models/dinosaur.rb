@@ -11,9 +11,6 @@ class Dinosaur < ApplicationRecord
 
   before_save :update_diet
 
-  # Workaround: using this callback to update cage.dinosaurs_count 'cause read line 6 above
-  after_save :update_dinosaurs_count
-
   enum :diet, Park::Dinosaurs::DIET.zip(Park::Dinosaurs::DIET.map(&:to_s)).to_h, scopes: false
   enum :species, Park::Dinosaurs::SPECIES.zip(Park::Dinosaurs::SPECIES.map(&:to_s)).to_h, scopes: false
 

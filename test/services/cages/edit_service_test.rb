@@ -26,10 +26,11 @@ module Cages
 
     test 'should not allow to power `down` if it contains dinosaurs' do
       params = { id: cage.id,
-                 power_status: :down }
-      cage[:power_status] = :active
-      cage[:dinosaurs_count] = 1
+                 power_status: :down.to_s }
       create(:dinosaur, cage:)
+      cage[:power_status] = :active.to_s
+      cage[:dinosaurs_count] = 1
+      cage.save
 
       assert_no_changes -> { cage.dinosaurs_count } do
         service = Cages::EditService.new(params:, doorkeeper_application:).call

@@ -4,17 +4,19 @@ require 'test_helper'
 
 module Dinosaurs
   class MoveServiceTest < ActiveSupport::TestCase
-    attr_reader :params, :dinosaur, :doorkeeper_application
+    attr_reader :params, :cage, :dinosaur, :doorkeeper_application
 
     def setup
-      @cage = create(:cage, power_status: :active)
-      @dinosaur = create(:dinosaur, cage: @cage)
+      @cage = create(:cage, max_capacity: 1, power_status: :active.to_s)
+      @dinosaur = create(:dinosaur, species: :tyrannosaurus.to_s, cage: @cage)
+      @cage.dinosaurs_count = 1
+      @cage.save
       @doorkeeper_application = create(:doorkeeper_application)
     end
 
     test 'should move dinosaur successfully' do
       cage_from = dinosaur.cage
-      cage_to = create(:cage, max_capacity: 1, power_status: :active)
+      cage_to = create(:cage, max_capacity: 1, power_status: :active.to_s)
 
       params = { id: dinosaur.id,
                  cage_id: cage_to.id }
@@ -32,8 +34,7 @@ module Dinosaurs
     end
 
     test 'should not move dinosaur if cage has reached max capacity' do
-      cage = create(:cage, max_capacity: 1, power_status: :active)
-      create(:dinosaur, cage:)
+      dinosaur = create(:dinosaur)
 
       params = { id: dinosaur.id,
                  cage_id: cage.id }
@@ -48,7 +49,7 @@ module Dinosaurs
     end
 
     test 'should not move dinosaur if cage power status is `down`' do
-      cage = create(:cage, max_capacity: 1, power_status: :down)
+      cage = create(:cage, max_capacity: 1, power_status: :down.to_s)
 
       params = { id: dinosaur.id,
                  cage_id: cage.id }
@@ -64,11 +65,10 @@ module Dinosaurs
     end
 
     test 'show not move a dinosaur to a cage containing dinosaurs of a diffrent species' do
-      cage = create(:cage, max_capacity: 2, power_status: :active)
-      create(:dinosaur, species: :velociraptor, cage:)
-
-      dinosaur[:species] = :tyrannosaurus
-      dinosaur.save
+      cage = create(:cage, max_capacity: 2, power_status: :active.to_s)
+      create(:dinosaur, species: :stegosaurus.to_s, cage:)
+      cage[:dinosaurs_count] = 1
+      cage.save
 
       params = { id: dinosaur.id,
                  cage_id: cage.id }

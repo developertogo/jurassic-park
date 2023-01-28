@@ -26,7 +26,7 @@ Some [requirements](#business-requirements) which were not mentioned in the assi
 * The max capacity of a cage is set to 100 for validation purposes. It's a constant variable and can easily make it configurable if it needs to
 * The max capacity lowest value is 1
 * A dinosaur name is unique
-* A newly created dinosaur will not be in a cage. It has to be moved and assigned to a cage so that the cage `before_add` callback checks are triggered: `check_max_capacity?`, `check_power_status?`, and `check_same_species?`
+* A newly created dinosaur will not be in a cage. It has to be moved and assigned to a cage so that the cage `before_add` callback checks are triggered: `check_max_capacity?`, `check_power_status_on_add?`, and `check_same_species?`
 
 ## Requirement
 

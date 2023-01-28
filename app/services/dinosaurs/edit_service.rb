@@ -5,21 +5,7 @@ module Dinosaurs
     option :params, type: Types::Hash
 
     def call
-      dinosaur = yield fetch_dinosaur
-      result = yield update_dinosaur(dinosaur)
-
-      Success(result)
-    end
-
-    private
-
-    def fetch_dinosaur
       dinosaur = Dinosaur.find(params[:id])
-
-      Success(dinosaur)
-    end
-
-    def update_dinosaur(dinosaur)
       return Success() if dinosaur.update(params)
 
       resource_failure(dinosaur)

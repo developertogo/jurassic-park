@@ -7,7 +7,7 @@ module Cages
     attr_reader :params, :cage, :doorkeeper_application
 
     def setup
-      @cage = create(:cage, power_status: :active)
+      @cage = create(:cage, power_status: :active.to_s)
       @doorkeeper_application = create(:doorkeeper_application)
     end
 
@@ -22,7 +22,10 @@ module Cages
     end
 
     test 'should not delete cage when it contains dinosaurs' do
+      cage = create(:cage, power_status: :active.to_s)
       create(:dinosaur, cage:)
+      cage.dinosaurs_count = 1
+      cage.save
       params = { id: cage.id }
 
       assert_no_difference -> { cage.dinosaurs_count } do

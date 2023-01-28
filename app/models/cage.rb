@@ -12,13 +12,15 @@ class Cage < ApplicationRecord
   before_save :check_power_status?
   after_save :update_dinosaurs_count
 
-  enum :power_status, Park::Cages::POWER_STATUS.zip(Park::Cages::POWER_STATUS.map(&:to_s)).to_h, default: :down, scopes: false
+  enum :power_status, Park::Cages::POWER_STATUS.zip(Park::Cages::POWER_STATUS.map(&:to_s)).to_h, default: :down.to_s, scopes: false
 
   validates :max_capacity, numericality: { in: 1..100 }
   validates :tag, presence: true, uniqueness: true, allow_blank: false
   validates :location, presence: true, allow_blank: false
   validates :power_status, inclusion: { in: Park::Cages::POWER_STATUS.map(&:to_s),
                                         message: "Power status must be one of #{Park::Cages::POWER_STATUS.map(&:to_s)}" }
+
+  private
 
   def update_dinosaurs_count
     # NOTE: Attempted to avoid a DB count by tracking `dinosaurs_count` with `init`, `after_add`, and `after_remove` callbacks
@@ -28,8 +30,6 @@ class Cage < ApplicationRecord
     errors.add(:base, "Unable to update cage #{tag} dinosaurs_count")
     raise ActiveRecord::RecordInvalid, self
   end
-
-  private
 
   def check_max_capacity?(_dinosaur)
     return unless (dinosaurs_count + 1) > max_capacity
@@ -46,7 +46,7 @@ class Cage < ApplicationRecord
   end
 
   def check_same_species?(dinosaur)
-    return unless dinosaurs_count.positive? && dinosaur.species != dinosaurs[0].species
+    return unless dinosaurs_count.positive? && dinosaur.diet != dinosaurs[0].diet
 
     errors.add(:base, "Unable to move to cage #{tag}. It contains #{dinosaurs[0].diet}, a different species")
     raise ActiveRecord::RecordInvalid, self

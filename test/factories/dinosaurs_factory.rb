@@ -13,7 +13,7 @@ FactoryBot.define do
   species_idx = diet_idx.zero? ? carnivores_idx : herbivores_idx
 
   factory :dinosaur do
-    association :cage, strategy: :null # , power_status: :active, dinosaurs_count: 1
+    association :cage, strategy: :null
     name { Faker::Name.unique.name }
     diet { Park::Dinosaurs::DIET[diet_idx].to_s }
     species { Park::Dinosaurs::SPECIES[species_idx].to_s }

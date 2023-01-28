@@ -7,7 +7,7 @@ module Dinosaurs
     attr_reader :params, :dinosaur, :doorkeeper_application
 
     def setup
-      @dinosaur = create(:dinosaur, species: :moschops)
+      @dinosaur = create(:dinosaur, species: :moschops.to_s)
       @params = attributes_for(:dinosaur)
       @doorkeeper_application = create(:doorkeeper_application)
     end
