@@ -12,3 +12,9 @@ namespace :users do
   post 'password', to: 'passwords#create', as: :password
   patch 'password', to: 'passwords#update', as: nil
 end
+
+resources :cages
+resources :dinosaurs, except: :update
+
+patch 'dinosaurs/:id/move/:cage_id', to: 'dinosaurs#move', as: 'dinosaur_move'
+patch 'dinosaurs/:id', to: 'dinosaurs#update', as: 'dinosaur_update'

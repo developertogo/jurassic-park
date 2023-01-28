@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 module Park
-  module Cage
-    POWER_STATUS = %i[active down]
+  module Cages
+    POWER_STATUS = %i[active down].freeze
+    MAX_CAPACITY = 100
   end
 
-  module Dinosaur
-    DIET = %i[herbivores carnivores] # omnivores is another option
+  module Dinosaurs
+    DIET = %i[carnivores herbivores].freeze  # omnivores is another option
 
-    CARNIVORES = %i[tyrannosaurus giganotosaurus velociraptor spinosaurus megalosaurus yutyrannus 
-                    acrocanthosaurus carnotaurus deinonychus allosaurus troodon herrerasaurus]
-    HERBIVORES = %i[brachiosaurus stegosaurus ankylosaurus triceratops diplodocus dracorex 
-                    moschops argentinosaurus edmontosaurus hadrosaurus nodosaurus]
+    CARNIVORES = %i[tyrannosaurus giganotosaurus velociraptor spinosaurus megalosaurus yutyrannus
+                    acrocanthosaurus carnotaurus deinonychus allosaurus troodon herrerasaurus].freeze
+    HERBIVORES = %i[brachiosaurus stegosaurus ankylosaurus triceratops diplodocus dracorex
+                    moschops argentinosaurus edmontosaurus hadrosaurus nodosaurus].freeze
     SPECIES = CARNIVORES + HERBIVORES
   end
 end

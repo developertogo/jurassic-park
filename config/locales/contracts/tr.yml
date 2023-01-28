@@ -6,3 +6,12 @@ tr:
       password: Şifre
       password_confirmation: Şifre onayı
       reset_password_token: Şifre sıfırlama jetonu
+      id: $id
+      tag: $tag
+      power_status: $power_status
+      max_capacity: $max_capacity
+      location: $location
+      name: $name
+      species: $species
+      cage_id: $cage_id
+      query: $query

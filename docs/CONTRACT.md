@@ -1,7 +1,7 @@
 # Contract Generator Documentation
 This boilerplate is using `dry-validation` gem for contract structure. If you need contract, you can use custom contract generator like that:
 ```bash
-$ rails generate contract Users::Registration 
+$ rails generate contract Users::Registration
 ```
 
 Then, it will create some service classes for your operations.

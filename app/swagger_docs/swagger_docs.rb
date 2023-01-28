@@ -16,18 +16,32 @@ class SwaggerDocs
     Controllers::V1::Users::TokensController,
     Controllers::V1::Users::RegistrationsController,
     Controllers::V1::Users::PasswordsController,
+    Controllers::V1::CagesController,
+    Controllers::V1::DinosaursController,
     ## Inputs ##
     Inputs::V1::User::SignInInput,
     Inputs::V1::User::SignUpInput,
     Inputs::V1::User::ResetPasswordInput,
     Inputs::V1::User::UpdatePasswordInput,
     Inputs::V1::User::RevokeInput,
+    Inputs::V1::CageCreateInput,
+    Inputs::V1::CageUpdateInput,
+    Inputs::V1::DinosaurCreateInput,
+    Inputs::V1::DinosaurUpdateInput,
     ## Responses ##
     Responses::V1::User::SignInResponse,
     Responses::V1::User::SignUpResponse,
     Responses::V1::User::ResetPasswordResponse,
     Responses::V1::User::UpdatePasswordResponse,
+    Responses::V1::CageCreateResponse,
+    Responses::V1::CageListResponse,
+    Responses::V1::CageShowResponse,
+    Responses::V1::DinosaurCreateResponse,
+    Responses::V1::DinosaurListResponse,
+    Responses::V1::DinosaurShowResponse,
     ## Models ##
+    Models::Cage,
+    Models::Dinosaur,
     self
   ].concat(COMMON_SWAGGERED_CLASSES)
 
@@ -53,7 +67,7 @@ class SwaggerDocs
     server do
       url_options = Rails.application.routes.default_url_options
       key :url, "#{url_options[:protocol]}://#{url_options[:host]}"
-      key :description, 'Rails API Boilerplate'
+      key :description, 'Jurassic Park API'
     end
   end
 

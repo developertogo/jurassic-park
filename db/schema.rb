@@ -17,14 +17,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_215225) do
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "diets", ["herbivores", "carnivores"]
+  create_enum "diets", ["carnivores", "herbivores"]
   create_enum "power_statuses", ["active", "down"]
   create_enum "specieses", ["tyrannosaurus", "giganotosaurus", "velociraptor", "spinosaurus", "megalosaurus", "yutyrannus", "acrocanthosaurus", "carnotaurus", "deinonychus", "allosaurus", "troodon", "herrerasaurus", "brachiosaurus", "stegosaurus", "ankylosaurus", "triceratops", "diplodocus", "dracorex", "moschops", "argentinosaurus", "edmontosaurus", "hadrosaurus", "nodosaurus"]
 
   create_table "cages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "tag", null: false
     t.enum "power_status", null: false, enum_type: "power_statuses"
-    t.integer "dinosaur_count", default: 0, null: false
+    t.integer "dinosaurs_count", default: 0, null: false
     t.integer "max_capacity", default: 1, null: false
     t.string "location", null: false
     t.datetime "created_at", null: false

@@ -1,10 +1,33 @@
+![build & test & quality](https://github.com/cousins-factory/rails-api-boilerplate/actions/workflows/main.yml/badge.svg?branch=main)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 ![Ruby Version](https://img.shields.io/badge/ruby_version-3.1.2-blue.svg)
 ![Rails Version](https://img.shields.io/badge/rails_version-7.0.4-c52f24.svg)
 
 # Jurassic Park - RESTful Rails API
 
 # Solution
-This repo addresses the task described in [The Problem](#the-problem) section below. It's based on the [Rails API Boilerplate](https://github.com/shftco/rails-api-boilerplate). Although, it includes more gems that is required for this project, it includes a great handling of the HTTP request, see [How to Works?](https://github.com/shftco/rails-api-boilerplate#how-to-works) section. This _boilerplate_ is also a great starting point to expand the application with more features and functionalities later.
+
+## Introduction
+
+The intend of this repo is to address the problem (assignment) described in [The Problem](#the-problem) section below.
+
+## Design and Development Strategy
+
+The source code is based on the [Rails API Boilerplate](https://github.com/shftco/rails-api-boilerplate). Although, it includes more gems that is required for this project, it has a great workflow handling of the HTTP request, see a diagram at [How to Works?](https://github.com/shftco/rails-api-boilerplate#how-to-works) section. The intend is to not crowd the controller or models with business logic. This _boilerplate_ is also a great starting point to expand the application with more features and functionalities later.
+
+## Business Assumptions
+
+Some [requirements](#business-requirements) which were not mentioned in the assignment are addressed below. The code can be easily refactored if the requirements changes.
+
+* Use UUID for record IDs in order to avoid vulnerability attacks
+* A cage has a unique tag name and location
+* A cage cannot be deleted when it contains dinosaurs, i.e. not empty.
+* A cage max capacity cannot be changed, it can only be set on create
+* The max capacity of a cage is set to 100 for validation purposes. It's a constant variable and can easily make it configurable if it needs to
+* The max capacity lowest value is 1
+* A dinosaur name is unique
+* A newly created dinosaur will not be in a cage yet. It has to be moved and assigned to a cage so that the cage `before_add` callback checks are triggered: `check_max_capacity?`, `check_power_status_on_add?`, and `check_same_species?`
+* A dinosaur is not allowed to move to the same cage that it's already contained in, avoiding the possibility of duplicate records
 
 ## Requirement
 
@@ -53,6 +76,24 @@ This repo addresses the task described in [The Problem](#the-problem) section be
   rails db:seed
   ```
 
+- Run unit tests
+
+   ```bash
+   rails test [--verbose]
+   ```
+
+- Run the server
+
+   ```bash
+   ./bin/dev
+   ```
+
+- Connect to Swagger UI
+
+   ```bash
+  https://localhost:3000
+   ```
+
 - If you are setting up again, when you already have previous databases:
 
   ```bash
@@ -60,13 +101,16 @@ This repo addresses the task described in [The Problem](#the-problem) section be
   ```
 
   `reset` is equivalent of `rails db:drop & rails db:setup`.
-  &nbsp;  
+  &nbsp;
 
-- Run the server
+## Known Issues
 
-   ```bash
-   ./bin/dev
-   ```
+1. Missing query parameters validation
+   _Work is under progress_ using [dry-validation](https://dry-rb.org/gems/dry-validation/1.8/)
+
+### Unit Tests Skipped
+
+1. _Show resource APIs_: `v1/cages/{id}` and `v1/dinosaurs/{id}` were skipped because it keeps failing with this error `ActionController::RoutingError: No route matches [POST]` when indeed the routes clearly show they GET requests, see http://localhost:3000/rails/info/routes, when it's running.
 
 ## Running in a Concurrent Environment
 
@@ -84,7 +128,7 @@ When running in a concurrent environment, these changes need to be made:
 
 It's 1993 and you're the lead software developer for the new Jurassic Park! Park operations needs a system to keep track of the different cages around the park and the different dinosaurs in each one. You'll need to develop a JSON formatted RESTful API to allow the builders to create new cages. It will also allow doctors and scientists the ability to edit/retrieve the statuses of dinosaurs and cages.
 
-## Business Requirements
+## [Business Requirements](#business-requirements)
 
 Please attempt to implement the following business requirements:
 
@@ -107,3 +151,8 @@ Please attempt to implement the following business requirements:
 - Must be able to query a listing of dinosaurs in a specific cage.
 - When querying dinosaurs or cages they should be filterable on their attributes (Cages on their power status and dinosaurs on species).
 - Automated tests that ensure the business logic implemented is correct.
+
+----
+
+Today is free admission. Enjoy the park and have a wonderful experience! Hope to see you back!!
+

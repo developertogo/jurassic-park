@@ -43,7 +43,7 @@ group :development, :test do
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
 
   # A library for generating fake data [https://github.com/faker-ruby/faker]
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 
   # Pretty print your Ruby objects [https://github.com/awesome-print/awesome_print]
   gem 'awesome_print'
@@ -118,6 +118,9 @@ gem 'dry-types', '~> 1.5', '>= 1.5.1'
 
 # DSL for declaring params and options of the initializer [https://github.com/dry-rb/dry-initializer]
 gem 'dry-initializer', '~> 3.1', '>= 3.1.1'
+
+# Coercion and validation for data structures [https://github.com/dry-rb/dry-schema]
+gem 'dry-schema', '~> 1.13', '>= 1.13.0'
 
 # Flexible authentication solution for Rails with Warden [https://github.com/heartcombo/devise]
 gem 'devise', '~> 4.8', '>= 4.8.1'

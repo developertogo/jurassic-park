@@ -8,8 +8,8 @@ module Doorkeeper
       attr_reader :doorkeeper_application, :user
 
       def setup
-        @doorkeeper_application = create(:doorkeeper_application)
         @user = create(:user)
+        @doorkeeper_application = create(:doorkeeper_application)
       end
 
       test 'should create doorkeeper access token' do
