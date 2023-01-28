@@ -10,6 +10,12 @@ module Dinosaurs
       dinosaur = Dinosaur.find(params[:id])
       old_cage = dinosaur.cage
 
+      # disallow moving to the same cage that dinosaur is already in
+      if old_cage == new_cage
+        new_cage.errors.add(:base, "Dinosaur #{dinosaur.name} is already contained in cage #{new_cage.tag}")
+        return resource_failure(new_cage)
+      end
+
       ActiveRecord::Base.transaction(requires_new: true) do
         if old_cage.present?
           old_cage.dinosaurs&.delete(dinosaur)

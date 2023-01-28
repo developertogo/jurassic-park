@@ -33,6 +33,25 @@ module Dinosaurs
       end
     end
 
+    test 'should not move a dinosaur to the same cage that it is already contained' do
+      cage = create(:cage, max_capacity: 2, power_status: :active.to_s)
+      dinosaur = create(:dinosaur, species: :stegosaurus.to_s, cage:)
+      cage[:dinosaurs_count] = 1
+      cage.save
+
+      params = { id: dinosaur.id,
+                 cage_id: cage.id }
+      assert_no_difference -> { cage.dinosaurs_count } do
+        service = Dinosaurs::MoveService.new(params:, doorkeeper_application:).call
+
+        dinosaur.reload
+        cage.reload
+
+        assert service.failure?
+        assert_equal "Dinosaur #{dinosaur.name} is already contained in cage #{cage.tag}", service.failure[:errors][0]
+      end
+    end
+
     test 'should not move dinosaur if cage has reached max capacity' do
       dinosaur = create(:dinosaur)
 
@@ -64,7 +83,7 @@ module Dinosaurs
       end
     end
 
-    test 'show not move a dinosaur to a cage containing dinosaurs of a diffrent species' do
+    test 'should not move a dinosaur to a cage containing dinosaurs of a diffrent species' do
       cage = create(:cage, max_capacity: 2, power_status: :active.to_s)
       create(:dinosaur, species: :stegosaurus.to_s, cage:)
       cage[:dinosaurs_count] = 1
