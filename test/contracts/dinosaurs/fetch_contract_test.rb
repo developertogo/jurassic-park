@@ -20,6 +20,7 @@ module Dinosaurs
       success?(validate({ query: '{"species_eq": "tyrannosaurus"}' }), :query, CONTRACT)
       invalid_with?(validate({ query: '{"species_eq": "any"}' }), :query, "{:species_eq=>[\"must be one of: #{values}\"]}", CONTRACT)
       invalid_with?(validate({ query: '{"somethind_else": "any"}' }), :query, '{:species_eq=>["is missing"]}', CONTRACT)
+      invalid_with?(validate({ query: 'species = 1' }), :query, 'invalid json format', CONTRACT)
     end
   end
 end
