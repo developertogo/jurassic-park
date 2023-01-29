@@ -7,15 +7,23 @@ module Cages
       optional(:query).value(:string)
     end
 
-    # NOTE: Work in progress
-    # Attemptng to validate query parameter string
-    # rule(:query) do
-    #   query_hash = convert_to_hash(value) if key?
-    #   query_key = query_hash.keys[0] if key?
-    #   # NOTE
-    #   # Getting `LocalJumpError: unexpected return`
-    #   # return key.failure("invalid query key") if key? && [:power_status_eq, :dinosaurs].exclude?(query_key)
-    #   return key.failure("invalid query value") if key? && Park::Cages::POWER_STATUS.exclude?(query_hash.values[0].to_sym)
-    # end
+    json_id_schema = Dry::Schema.JSON do
+      required(:dinosaurs).value(:empty?)
+    end
+
+    json_no_id_schema = Dry::Schema.JSON do
+      values = Park::Cages::POWER_STATUS.map(&:to_s)
+      required(:power_status_eq).filled(included_in?: values)
+    end
+
+    rule(:query) do
+      if values[:id].present? && values[:query].present?
+        result = json_id_schema.call(JSON.parse(value))
+        key.failure(result.errors.to_h.inspect) if key? && result.failure?
+      elsif values[:query].present?
+        result = json_no_id_schema.call(JSON.parse(value))
+        key.failure(result.errors.to_h.inspect) if key? && result.failure?
+      end
+    end
   end
 end

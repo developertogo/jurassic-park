@@ -5,7 +5,7 @@ module Cages
     params do
       required(:id).filled(:uuid_v4?)
 
-      values = Park::Cages::POWER_STATUS.map { |v| v.to_s.downcase }
+      values = Park::Cages::POWER_STATUS.map(&:to_s)
       optional(:tag) { str? }
 
       optional(:power_status).maybe(Types::String.enum(*values))

@@ -5,7 +5,7 @@
 module Dinosaurs
   class CreateContract < ApplicationContract
     params do
-      values = Park::Dinosaurs::SPECIES.map { |s| s.to_s.downcase }
+      values = Park::Dinosaurs::SPECIES.map(&:to_s)
       # NOTE: Attempted to check uniqueness before reaching to the DB with no success,
       # see work in branch: https://github.com/developertogo/jurassic-park/tree/uniqueness-enum-validation
       required(:name) { filled? & str? }
