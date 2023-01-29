@@ -5,7 +5,7 @@
 module Cages
   class CreateContract < ApplicationContract
     params do
-      values = Park::Cages::POWER_STATUS.map { |v| v.to_s.downcase }
+      values = Park::Cages::POWER_STATUS.map(&:to_s)
       # NOTE: Attempted to check uniqueness before reaching to the DB with no success,
       # see work in branch: https://github.com/developertogo/jurassic-park/tree/uniqueness-enum-validation
       required(:tag) { filled? & str? }

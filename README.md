@@ -103,14 +103,9 @@ Some [requirements](#business-requirements) which were not mentioned in the assi
   `reset` is equivalent of `rails db:drop & rails db:setup`.
   &nbsp;
 
-## Known Issues
-
-1. Missing query parameters validation
-   _Work is under progress_ using [dry-validation](https://dry-rb.org/gems/dry-validation/1.8/)
-
 ### Unit Tests Skipped
 
-1. _Show resource APIs_: `v1/cages/{id}` and `v1/dinosaurs/{id}` were skipped because it keeps failing with this error `ActionController::RoutingError: No route matches [POST]` when indeed the routes clearly show they GET requests, see http://localhost:3000/rails/info/routes, when it's running.
+1. _Show resource APIs_: `v1/cages/{id}` and `v1/dinosaurs/{id}` were skipped because it keeps failing with this error `ActionController::RoutingError: No route matches [POST]` when indeed the routes clearly show they are GET requests, see http://localhost:3000/rails/info/routes, when it's running.
 
 ## Running in a Concurrent Environment
 

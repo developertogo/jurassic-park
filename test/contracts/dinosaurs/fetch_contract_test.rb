@@ -15,10 +15,11 @@ module Dinosaurs
       uuid_v4?(validate({ id: '1234567890' }), :id, CONTRACT)
     end
 
-    # test 'validate#query' do
-    #   success?(validate({ query: '{"species_eq": "tyrannosaurus"}' }), :query, CONTRACT)
-    #   # type?(validate({ query: '{"speciestest_eq": "tyrannosaurus"}' }), :query, string, CONTRACT)
-    #   # type?(validate({ query: '{"species_eq": "test"}' }), :query, string, CONTRACT)
-    # end
+    test 'validate#query' do
+      values = Park::Dinosaurs::SPECIES.map(&:to_s).join(', ').delete('"')
+      success?(validate({ query: '{"species_eq": "tyrannosaurus"}' }), :query, CONTRACT)
+      invalid_with?(validate({ query: '{"species_eq": "any"}' }), :query, "{:species_eq=>[\"must be one of: #{values}\"]}", CONTRACT)
+      invalid_with?(validate({ query: '{"somethind_else": "any"}' }), :query, '{:species_eq=>["is missing"]}', CONTRACT)
+    end
   end
 end
