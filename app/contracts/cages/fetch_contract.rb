@@ -24,6 +24,8 @@ module Cages
         result = json_no_id_schema.call(JSON.parse(value))
         key.failure(result.errors.to_h.inspect) if key? && result.failure?
       end
+    rescue JSON::ParserError
+      key.failure('invalid json format')
     end
   end
 end

@@ -14,8 +14,12 @@ module Dinosaurs
 
     rule(:query) do
       if value.present?
-        result = json_schema.call(JSON.parse(value))
-        key.failure(result.errors.to_h.inspect) if key? && result.failure?
+        begin
+          result = json_schema.call(JSON.parse(value))
+          key.failure(result.errors.to_h.inspect) if key? && result.failure?
+        rescue JSON::ParserError
+          key.failure('invalid json format')
+        end
       end
     end
   end
