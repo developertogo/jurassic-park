@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './app/lib/park'
+# require './app/lib/park'
 
 module Models
   class Dinosaur < ApplicationRecord
@@ -26,7 +26,7 @@ module Models
         property :diet do
           key :type, :string
           key :enum, Park::Dinosaurs::DIET
-          key :description, 'dinosaur diet'
+          key :description, 'dinosaur diet (read only)'
         end
 
         property :species do

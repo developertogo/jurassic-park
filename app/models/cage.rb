@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './app/lib/park'
+# require './app/lib/park'
 
 class Cage < ApplicationRecord
   has_many :dinosaurs, dependent: :nullify, inverse_of: :cage,

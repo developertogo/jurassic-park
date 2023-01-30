@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './app/lib/park'
+# require './app/lib/park'
 
 class Dinosaur < ApplicationRecord
   # NOTE: Could not use counter_cache, need association callbacks to be fired
