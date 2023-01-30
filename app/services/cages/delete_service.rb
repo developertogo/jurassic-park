@@ -6,11 +6,14 @@ module Cages
 
     def call
       cage = Cage.find(params[:id])
-      cage.destroy
 
-      Success()
-    rescue StandardError
-      resource_failure(cage)
+      begin
+        cage.destroy
+
+        Success()
+      rescue StandardError
+        resource_failure(cage)
+      end
     end
   end
 end
