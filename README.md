@@ -20,7 +20,7 @@ The source code is based on the [Rails API Boilerplate](https://github.com/shftc
 Some [requirements](#business-requirements) which were not mentioned in the assignment are addressed below. The code can be easily refactored if the requirements changes.
 
 * Use UUID for record IDs in order to avoid vulnerability attacks
-* A cage has a unique tag name and location
+* A cage has a unique tag name and a non-unique location
 * A cage cannot be deleted when it contains dinosaurs, i.e. not empty.
 * A cage max capacity cannot be changed, it can only be set on create
 * The max capacity of a cage is set to 100 for validation purposes. It's a constant variable and can easily make it configurable if it needs to

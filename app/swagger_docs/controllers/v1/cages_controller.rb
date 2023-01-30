@@ -141,7 +141,7 @@ module Controllers
       # GET /v1/cages/{id}
       swagger_path '/v1/cages/{id}' do
         operation :get do
-          key :summary, 'Show cage'
+          key :summary, 'Show cage with a filter option'
           key :description, 'Show the cage details'
           key :operationId, 'cageShow'
           key :tags, [

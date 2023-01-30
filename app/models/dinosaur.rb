@@ -3,10 +3,7 @@
 require './app/lib/park'
 
 class Dinosaur < ApplicationRecord
-  # NOTE: attempted to use counter_cache but cage.dinosaurs_count becomes -1
-  # When moving dinosaur from the "from" cage containing just this dinosaur.
-  # Expected the count = 0, but not -1; even from_cage.dinosaurs.size returns -1
-  # belongs_to :cage #, counter_cache: true
+  # NOTE: Could not use counter_cache, need association callbacks to be fired
   belongs_to :cage, optional: true
 
   before_save :update_diet
@@ -19,10 +16,6 @@ class Dinosaur < ApplicationRecord
                                    message: 'Invalid species' }
 
   private
-
-  def update_dinosaurs_count
-    cage&.update_dinosaurs_count
-  end
 
   def update_diet
     return unless species_changed?
