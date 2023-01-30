@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './app/lib/park'
+# require './app/lib/park'
 
 module Models
   class Cage < ApplicationRecord

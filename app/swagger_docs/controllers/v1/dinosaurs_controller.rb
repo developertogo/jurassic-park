@@ -74,7 +74,7 @@ module Controllers
       swagger_path '/v1/dinosaurs' do
         operation :post do
           key :summary, 'Create dinosaur'
-          key :description, 'Create a new dinosaur'
+          key :description, 'Create a new dinosaur. To assign it to a cage, make a `move` request'
           key :operationId, 'dinosaurCreate'
           key :tags, [
             'Dinosaurs'
@@ -112,7 +112,7 @@ module Controllers
             key :description, 'Successful response'
             content :'application/json' do
               schema do
-                # key :'$ref', :DinosaurCreateSuccessResponse
+                key :'$ref', :DinosaurCreateSuccessResponse
               end
             end
           end
