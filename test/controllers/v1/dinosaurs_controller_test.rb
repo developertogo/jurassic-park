@@ -4,7 +4,7 @@ require 'test_helper'
 
 module V1
   class DinosaursControllerTest < ActionDispatch::IntegrationTest
-    attr_reader :params, :doorkeeper_application
+    attr_reader :params, :cage, :dinosaur, :doorkeeper_application
 
     setup do
       @cage = create(:cage)
@@ -22,7 +22,7 @@ module V1
 
     test 'should get dinosaurs filtered by species' do
       params[:query] = {
-        species_eq: @params[:species]
+        species_eq: params[:species]
       }
       get v1_dinosaurs_url, params:, as: :json
 
@@ -49,15 +49,23 @@ module V1
     end
 
     test 'should update dinosaur' do
-      patch v1_dinosaur_update_url(@dinosaur), params:, as: :json
+      patch v1_dinosaur_update_url(dinosaur), params:, as: :json
       assert_response :success
     end
 
     test 'should destroy dinosaur' do
+      dinosaur.cage = cage
+      cage.dinosaurs_count = 1
+      cage.save
+      dinosaur.save
+
       assert_difference('Dinosaur.count', -1) do
-        delete v1_dinosaur_url(@dinosaur), params:, as: :json
+        delete v1_dinosaur_url(dinosaur), params:, as: :json
       end
 
+      cage.reload
+
+      assert_equal 0, cage.dinosaurs_count
       assert_response :success
     end
   end

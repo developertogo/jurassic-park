@@ -20,10 +20,6 @@ class Dinosaur < ApplicationRecord
 
   private
 
-  def update_dinosaurs_count
-    cage&.update_dinosaurs_count
-  end
-
   def update_diet
     return unless species_changed?
 

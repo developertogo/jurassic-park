@@ -6,11 +6,12 @@ class Cage < ApplicationRecord
   has_many :dinosaurs, dependent: :nullify, inverse_of: :cage,
                        before_add: [:check_max_capacity?,
                                     :check_power_status_on_add?,
-                                    :check_same_species?]
+                                    :check_same_species?],
+                       after_add: :increment_dinosaurs_count,
+                       after_remove: :decrement_dinosaurs_count
 
   before_destroy :check_dinosaurs_count?
   before_save :check_power_status?
-  after_save :update_dinosaurs_count
 
   enum :power_status, Park::Cages::POWER_STATUS.zip(Park::Cages::POWER_STATUS.map(&:to_s)).to_h, default: :down.to_s, scopes: false
 
@@ -22,13 +23,19 @@ class Cage < ApplicationRecord
 
   private
 
-  def update_dinosaurs_count
-    # NOTE: Attempted to avoid a DB count by tracking `dinosaurs_count` with `init`, `after_add`, and `after_remove` callbacks
-    # with no success, see work in branch: https://github.com/developertogo/jurassic-park/tree/uniqueness-enum-validation
-    update_column(:dinosaurs_count, dinosaurs.count) # rubocop:disable Rails/SkipsModelValidations
-  rescue StandardError
-    errors.add(:base, "Unable to update cage #{tag} dinosaurs_count")
-    raise ActiveRecord::RecordInvalid, self
+  def increment_dinosaurs_count(_dinosaur)
+    self.dinosaurs_count = 0 if dinosaurs_count <= 0
+    update_dinosaurs_count(1)
+  end
+
+  def decrement_dinosaurs_count(_dinosaur)
+    return self.dinosaurs_count = 0 if dinosaurs_count <= 0
+
+    update_dinosaurs_count(-1)
+  end
+
+  def update_dinosaurs_count(amount)
+    self.dinosaurs_count += amount
   end
 
   def check_max_capacity?(_dinosaur)
